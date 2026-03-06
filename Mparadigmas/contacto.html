@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contacto | Mparadigmas</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--accent-blue:#08adfd;
+--accent-white:#ffffff;
+}
+
+body{
+font-family:'Montserrat',sans-serif;
+}
+
+h1,h2,h3{
+font-family:'Inter',sans-serif;
+}
+
+nav h1{color:var(--accent-white);font-weight:800;font-size:20px;}
+nav span{color:var(--accent-blue);font-weight:800;font-size:22px;}
+
+</style>
+
+</head>
+
+<body class="bg-white text-gray-800">
+
+<!-- NAVBAR -->
+
+<nav class="fixed w-full bg-[#04225d]/90 backdrop-blur z-50 shadow-lg">
+
+<div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+
+<div class="text-white text-xl font-bold titulo">
+<h1><span>{M</span>paradigmas<span>}</span></h1>
+</div>
+
+<div class="hidden md:flex gap-8 text-white">
+
+<a href="index.html" class="hover:text-[#02fefe]">Inicio</a>
+<a href="cursos.html">Cursos</a>
+<a href="incripciones.html">Inscripciones</a>
+<a href="contacto.html">Contacto</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="pt-36 pb-24 bg-gradient-to-r from-[#04225d] via-[#021633] to-black text-white text-center">
+
+<h1 class="text-4xl md:text-5xl font-bold mb-6">
+Conecta con el futuro
+</h1>
+
+<p class="max-w-2xl mx-auto text-lg text-gray-300">
+Si deseas más información sobre nuestros programas de robótica,
+programación y tecnología, estaremos encantados de responderte.
+</p>
+
+</section>
+
+<!-- TARJETAS DE CONTACTO -->
+
+<section class="py-20 bg-white">
+
+<div class="max-w-6xl mx-auto px-6">
+
+<h2 class="text-3xl font-bold text-center mb-16 text-[#04225d]">
+Nuestros canales de contacto
+</h2>
+
+<div class="grid md:grid-cols-3 gap-10">
+
+<div class="bg-white border border-gray-100 rounded-2xl p-10 shadow-lg text-center hover:shadow-xl transition">
+
+
+
+<h3 class="text-xl font-semibold mb-2 text-[#04225d]">
+Correo electrónico
+</h3>
+
+<p class="text-gray-600">
+contacto@mparadigmas.com
+</p>
+
+</div>
+
+<div class="bg-white border border-gray-100 rounded-2xl p-10 shadow-lg text-center hover:shadow-xl transition">
+
+
+
+<h3 class="text-xl font-semibold mb-2 text-[#04225d]">
+Teléfono
+</h3>
+
+<p class="text-gray-600">
++58 000 0000000
+</p>
+
+</div>
+
+<div class="bg-white border border-gray-100 rounded-2xl p-10 shadow-lg text-center hover:shadow-xl transition">
+
+
+
+<h3 class="text-xl font-semibold mb-2 text-[#04225d]">
+Ubicación
+</h3>
+
+<p class="text-gray-600">
+Venezuela
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FORMULARIO -->
+
+<section class="py-24 bg-gray-100">
+
+<div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+
+<div>
+
+<h2 class="text-3xl font-bold text-[#04225d] mb-6">
+Envíanos un mensaje
+</h2>
+
+<p class="text-gray-600">
+Nuestro equipo responderá tus dudas sobre los cursos,
+inscripciones y programas tecnológicos de Mparadigmas.
+</p>
+
+</div>
+
+<form class="bg-white p-10 rounded-2xl shadow-xl space-y-6">
+
+<div>
+
+<label class="block mb-2 font-medium">
+Nombre
+</label>
+
+<input type="text" placeholder="Tu nombre"
+class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#08adfd]">
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-medium">
+Correo electrónico
+</label>
+
+<input type="email" placeholder="correo@email.com"
+class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#08adfd]">
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-medium">
+Mensaje
+</label>
+
+<textarea rows="4" placeholder="Escribe tu mensaje..."
+class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#08adfd]"></textarea>
+
+</div>
+
+<button class="w-full bg-[#08adfd] hover:bg-[#02fefe] text-white font-semibold py-4 rounded-lg text-lg transition">
+
+Enviar mensaje
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="bg-[#04225d] text-white py-10 text-center">
+
+<p class="text-gray-300">
+© 2026 {Mparadigmas} — Marcando paradigmas en tecnología
+</p>
+
+</footer>
+
+</body>
+</html>
