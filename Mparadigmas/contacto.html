@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contacto | Mparadigmas</title>
+<link rel="icon" type="image/png" href="favicon.png">
+
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<style>
+
+:root{
+--accent-blue:#08adfd;
+--accent-white:#ffffff;
+}
+
+body{
+font-family:'Montserrat',sans-serif;
+}
+
+h1,h2,h3{
+font-family:'Inter',sans-serif;
+}
+
+nav h1{color:var(--accent-white);font-weight:800;font-size:20px;}
+nav span{color:var(--accent-blue);font-weight:800;font-size:22px;}
+
+</style>
+
+</head>
+
+<body class="bg-white text-gray-800">
+
+
+
+<!-- MENU NAV -->
+<nav class="fixed w-full bg-[#04225d]/80 backdrop-blur-lg z-50 border-b border-white/10 shadow-lg">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+        
+        <div class="text-white text-xl font-bold tracking-tighter" style="font-family: 'Inter', sans-serif;">
+            <a href="index.html" class="hover:opacity-90 transition-opacity">
+                <span class="text-[#08adfd]">{M</span><span class="text-white">paradigmas</span><span class="text-[#08adfd]">}</span>
+            </a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden text-white p-2 focus:outline-none transition-transform active:scale-95">
+            <svg id="menu-icon" class="w-8 h-8 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path id="path-menu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <ul id="menu" class="hidden md:flex flex-col md:flex-row absolute md:relative top-full left-0 w-full md:w-auto bg-[#04225d] md:bg-transparent p-6 md:p-0 space-y-4 md:space-y-0 md:space-x-8 text-right md:text-left border-t md:border-t-0 border-white/10 shadow-xl md:shadow-none transition-all">
+            
+            <li>
+                <a href="index.html" class="nav-link block text-gray-300 hover:text-[#02fefe] transition-all font-medium py-2 md:py-1 border-b-2 border-transparent hover:border-[#02fefe]">
+                    Inicio
+                </a>
+            </li>
+            <li>
+                <a href="cursos.html" class="nav-link block text-gray-300 hover:text-[#02fefe] transition-all font-medium py-2 md:py-1 border-b-2 border-transparent hover:border-[#02fefe]">
+                    Cursos
+                </a>
+            </li>
+            <li>
+                <a href="inscripciones.html" class="nav-link block text-gray-300 hover:text-[#02fefe] transition-all font-medium py-2 md:py-1 border-b-2 border-transparent hover:border-[#02fefe]">
+                    Inscripciones
+                </a>
+            </li>
+            <li>
+                <a href="contacto.html" class="nav-link block text-gray-300 hover:text-[#02fefe] transition-all font-medium py-2 md:py-1 border-b-2 border-transparent hover:border-[#02fefe]">
+                    Contacto
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative pt-32 pb-20 bg-[#04225d] text-white text-center overflow-hidden">
+    
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#08adfd 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#08adfd]/10 blur-[150px] rounded-full -mr-40 -mt-40"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#02fefe]/5 blur-[120px] rounded-full -ml-20 -mb-20"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1 mb-6 border border-[#08adfd]/30 rounded-full text-[#08adfd] text-[10px] font-bold tracking-[0.2em] uppercase bg-[#08adfd]/5" data-aos="fade-down">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#08adfd] animate-ping"></span>
+            Centro de Soporte Técnico
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-[1.1]" 
+            style="font-family: 'Inter', sans-serif;" 
+            data-aos="fade-up">
+            Conecta con el <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#08adfd] to-[#02fefe]">Futuro</span>
+        </h1>
+
+        <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 leading-relaxed font-light mb-10" 
+           data-aos="fade-up" 
+           data-aos-delay="100">
+            Nuestro equipo de ingeniería está listo para guiarte en tu camino. Consulta sobre <span class="text-white font-medium border-b border-[#08adfd]/30">robótica, programación o electrónica</span>.
+        </p>
+
+        <div class="flex justify-center items-center gap-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="h-[1px] w-20 bg-gradient-to-r from-transparent to-[#08adfd]"></div>
+            <div class="flex gap-2">
+                <div class="w-2 h-2 rounded-full bg-[#02fefe] animate-pulse"></div>
+                <div class="w-2 h-2 rounded-full bg-[#02fefe] animate-pulse delay-75"></div>
+            </div>
+            <div class="h-[1px] w-20 bg-gradient-to-l from-transparent to-[#08adfd]"></div>
+        </div>
+
+    </div>
+</section>
+
+<!-- 2do bloque -->
+<section class="py-20 bg-white overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6">
+        
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-[#04225d] mb-3">Conecta con nosotros</h2>
+            <p class="text-gray-500 text-sm">Elige el canal que prefieras para empezar tu camino tecnológico.</p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <a href="mailto:contacto@mparadigmas.com" data-aos="fade-up" 
+               class="group bg-white border border-gray-100 rounded-2xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-t-4 border-t-[#08adfd]"
+               data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 bg-[#08adfd]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-[#08adfd] transition-colors duration-300">
+                    <svg class="w-7 h-7 text-[#08adfd] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-base font-bold text-[#04225d] mb-1">Email</h3>
+                <p class="text-xs text-gray-500 truncate">contacto@mparadigmas.com</p>
+                <span class="text-[10px] font-bold text-[#08adfd] mt-4 block opacity-0 group-hover:opacity-100 transition-opacity">Escribir →</span>
+            </a>
+
+            <a href="https://wa.me/580000000000" 
+               class="group bg-white border border-gray-100 rounded-2xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-t-4 border-t-[#02fefe]"
+               data-aos="fade-up" data-aos-delay="200">
+                <div class="w-14 h-14 bg-[#02fefe]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-[#02fefe] transition-colors duration-300">
+                    <svg class="w-7 h-7 text-[#02fefe] group-hover:text-[#04225d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <h3 class="text-base font-bold text-[#04225d] mb-1">WhatsApp</h3>
+                <p class="text-xs text-gray-500">+58 000 0000000</p>
+                <span class="text-[10px] font-bold text-[#02fefe] mt-4 block opacity-0 group-hover:opacity-100 transition-opacity">Chatear →</span>
+            </a>
+
+            <a href="#" 
+               class="group bg-white border border-gray-100 rounded-2xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-t-4 border-t-[#e1306c]"
+               data-aos="fade-up" data-aos-delay="300">
+                <div class="w-14 h-14 bg-[#e1306c]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-[#e1306c] transition-colors duration-300">
+                    <svg class="w-7 h-7 text-[#e1306c] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+                        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 class="text-base font-bold text-[#04225d] mb-1">Instagram</h3>
+                <p class="text-xs text-gray-500">@mparadigmas</p>
+                <span class="text-[10px] font-bold text-[#e1306c] mt-4 block opacity-0 group-hover:opacity-100 transition-opacity">Seguir →</span>
+            </a>
+
+            <a href="#" 
+               class="group bg-white border border-gray-100 rounded-2xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-t-4 border-t-black"
+               data-aos="fade-up" data-aos-delay="400">
+                <div class="w-14 h-14 bg-black/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-black transition-colors duration-300">
+                    <svg class="w-7 h-7 text-black group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+                    </svg>
+                </div>
+                <h3 class="text-base font-bold text-[#04225d] mb-1">TikTok</h3>
+                <p class="text-xs text-gray-500">@mparadigmas</p>
+                <span class="text-[10px] font-bold text-black mt-4 block opacity-0 group-hover:opacity-100 transition-opacity">Ver videos →</span>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- 3er bloque -->
+<section class="py-24 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+        
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+            
+            <div class="space-y-8" data-aos="fade-up">
+                <div>
+                    <h2 class="text-3xl font-bold text-[#04225d] mb-4">
+                        Visita nuestra sede
+                    </h2>
+                    <p class="text-gray-600 mb-6">
+                        Contamos con espacios equipados con tecnología de vanguardia para el aprendizaje práctico de robótica y electrónica.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="text-[#08adfd] mt-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#04225d]">Dirección</h4>
+                                <p class="text-gray-600">Av. Principal con Calle Tecno, Edificio Mparadigmas. Caracas, Venezuela.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="text-[#08adfd] mt-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#04225d]">Horario de atención</h4>
+                                <p class="text-gray-600">Lunes a Viernes: 8:00 AM - 5:00 PM<br>Sábados: 9:00 AM - 1:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full h-64 rounded-2xl overflow-hidden shadow-lg border-4 border-white">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125530.40263690665!2d-66.96040582457896!3d10.48286940843657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a58adcd86b5a3%3A0x4139744c80327f3!2sCaracas%2C%20Distrito%20Capital!5e0!3m2!1ses-419!2sve!4v1709850000000!5m2!1ses-419!2sve" 
+                        class="w-full h-full border-0" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+            <div data-aos="fade-up">
+                <form class="bg-white p-8 md:p-10 rounded-3xl shadow-2xl border border-gray-100 space-y-5">
+                    <div class="mb-2">
+                        <h3 class="text-2xl font-bold text-[#04225d]">Escríbenos</h3>
+                        <p class="text-sm text-gray-500">Te responderemos en menos de 24 horas hábiles.</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-700 ml-1">Nombre completo</label>
+                        <input type="text" placeholder="Ej. Guillermo Guerrero"
+                            class="w-full border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#08adfd] transition-all bg-gray-50">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-700 ml-1">Correo electrónico</label>
+                        <input type="email" placeholder="nombre@ejemplo.com"
+                            class="w-full border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#08adfd] transition-all bg-gray-50">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-700 ml-1">¿En qué podemos ayudarte?</label>
+                        <textarea rows="4" placeholder="Cuéntanos tus dudas sobre los cursos..."
+                            class="w-full border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#08adfd] transition-all bg-gray-50"></textarea>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full bg-[#04225d] hover:bg-[#08adfd] text-white font-bold py-4 rounded-xl text-lg transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-blue-900/20">
+                        Enviar mensaje ahora
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- footer -->
+<footer class="bg-[#04225d] text-white pt-16 pb-8 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+            
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold tracking-tighter" style="font-family: 'Inter', sans-serif;">
+                    <span class="text-[#08adfd]">{M</span><span class="text-white">paradigmas</span><span class="text-[#08adfd]">}</span>
+                </h2>
+                <p class="text-gray-400 text-sm leading-relaxed" style="font-family: 'Montserrat', sans-serif;">
+                    Líderes en formación de robótica y tecnología. 
+                    Marcando nuevos paradigmas educativos en Venezuela.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-[#08adfd]" style="font-family: 'Inter', sans-serif;">Explorar</h3>
+                <ul class="space-y-2 text-sm text-gray-300" style="font-family: 'Montserrat', sans-serif;">
+                    <li><a href="index.html" class="hover:text-[#02fefe] transition-colors">Inicio</a></li>
+                    <li><a href="cursos.html" class="hover:text-[#02fefe] transition-colors">Cursos de Robótica</a></li>
+                    <li><a href="inscripciones.html" class="hover:text-[#02fefe] transition-colors">Inscripciones</a></li>
+                    <li><a href="contacto.html" class="hover:text-[#02fefe] transition-colors">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-[#08adfd]" style="font-family: 'Inter', sans-serif;">Síguenos</h3>
+                <div class="flex justify-center md:justify-start gap-4">
+                    
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#e1306c] hover:-translate-y-1 transition-all duration-300 shadow-lg border border-white/10">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-black hover:-translate-y-1 transition-all duration-300 shadow-lg border border-white/10">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#25D366] hover:-translate-y-1 transition-all duration-300 shadow-lg border border-white/10">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-12.7 8.19 8.19 0 01 4.9 1.5l4.6-1.4z"></path>
+                        </svg>
+                    </a>
+
+                </div>
+                <p class="text-[11px] text-gray-500 mt-4 italic">Unidos por la innovación.</p>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-white/5 text-center">
+            <p class="text-gray-500 text-xs tracking-widest" style="font-family: 'Montserrat', sans-serif;">
+                © 2026 <span class="text-gray-300 font-medium">MPARADIGMAS</span> — Marcando paradigmas en tecnología
+            </p>
+            <div class="mt-4 flex justify-center gap-1">
+                <div class="w-1 h-1 bg-[#08adfd] rounded-full"></div>
+                <div class="w-4 h-1 bg-[#02fefe] rounded-full"></div>
+                <div class="w-1 h-1 bg-[#08adfd] rounded-full"></div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<!-- animacion de menu-->
+<script>
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+    const pathMenu = document.getElementById("path-menu");
+
+    btn.addEventListener("click", () => {
+        // Alternar visibilidad (hidden <-> flex)
+        menu.classList.toggle("hidden");
+        menu.classList.toggle("flex");
+
+        // Cambiar icono: Hamburguesa <-> X
+        if (menu.classList.contains("hidden")) {
+            pathMenu.setAttribute("d", "M4 6h16M4 12h16M4 18h16"); // Volver a hamburguesa
+        } else {
+            pathMenu.setAttribute("d", "M6 18L18 6M6 6l12 12"); // Convertir en X
+        }
+    });
+
+    // Cerrar el menú automáticamente al tocar un enlace en móvil
+    const navLinks = document.querySelectorAll(".nav-link");
+    navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            if (window.innerWidth < 768) {
+                menu.classList.add("hidden");
+                menu.classList.remove("flex");
+                pathMenu.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+            }
+        });
+    });
+</script>
+
+<!-- animaciones-->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init();
+</script>
+</body>
+</html>
