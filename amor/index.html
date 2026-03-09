@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>El Enigma de Nazaret</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink: #ff2d75;
+            --purple: #bc13fe;
+            --dark: #020617;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark);
+            color: #ffffff;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+
+        /* Glassmorphism Pro */
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Neon Glows */
+        .neon-text {
+            text-shadow: 0 0 15px var(--pink), 0 0 30px var(--purple);
+        }
+
+        .neon-btn {
+            background: linear-gradient(45deg, var(--pink), var(--purple));
+            box-shadow: 0 0 20px rgba(255, 45, 117, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .neon-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 5px var(--pink);
+        }
+
+        /* Background Canvas */
+        #heartCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            filter: blur(1px);
+        }
+
+        /* Custom Animations */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-game { animation: fadeInScale 0.5s ease-out forwards; }
+
+        input {
+            caret-color: var(--pink);
+            background: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .progress-indicator {
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            box-shadow: 0 0 10px var(--pink);
+            border-radius: 10px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body x-data="gameHandler()" x-init="initCanvas()">
+
+    <canvas id="heartCanvas"></canvas>
+
+    <div class="flex flex-col items-center justify-center min-h-screen p-6 relative z-10">
+        
+        <template x-if="view === 'start'">
+            <div class="text-center space-y-8 animate-game">
+                <div class="space-y-4">
+                    <h1 class="text-6xl font-bold neon-text" style="font-family: 'Dancing Script';">Nazaret</h1>
+                    <p class="text-pink-300 tracking-[0.3em] uppercase text-sm font-light">El Enigma de Nuestra Historia</p>
+                </div>
+                
+                <div class="glass p-8 rounded-[2rem] max-w-sm border-pink-500/20">
+                    <p class="text-slate-300 leading-relaxed italic">
+                        "He preparado 10 preguntas que solo tú podrías responder. No te preocupes por fallar, solo déjate llevar por los recuerdos."
+                    </p>
+                </div>
+
+                <button @click="startChallenge()" class="neon-btn w-full py-5 rounded-2xl font-bold text-lg tracking-widest uppercase">
+                    Comenzar el Viaje
+                </button>
+            </div>
+        </template>
+
+        <template x-if="view === 'quiz'">
+            <div class="w-full max-w-md space-y-8 animate-game">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-end mb-2">
+                        <span class="text-pink-400 font-bold text-2xl" x-text="'0' + (index + 1)"></span>
+                        <span class="text-slate-500 text-xs tracking-widest uppercase" x-text="'Nivel ' + (index + 1) + ' de 10'"></span>
+                    </div>
+                    <div class="w-full bg-slate-800/50 h-1 rounded-full overflow-hidden">
+                        <div class="progress-indicator" :style="'width: ' + ((index + 1) * 10) + '%'"></div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-[2.5rem] space-y-8 border-white/5 relative overflow-hidden">
+                    <h2 class="text-2xl font-medium leading-tight text-white/90" x-text="questions[index].q"></h2>
+                    
+                    <div class="relative">
+                        <input type="text" x-model="currentAnswer" @keyup.enter="nextStep()"
+                               class="w-full border-b-2 border-slate-700 p-4 outline-none focus:border-pink-500 transition-all text-xl font-light"
+                               placeholder="Escribe aquí...">
+                    </div>
+
+                    <div class="space-y-4">
+                        <button @click="nextStep()" class="neon-btn w-full py-5 rounded-2xl font-bold uppercase tracking-widest">
+                            Siguiente Puerta
+                        </button>
+                        <button @click="nextStep(true)" class="w-full text-slate-500 text-sm hover:text-pink-400 transition-colors">
+                            No estoy segura, saltar...
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template x-if="view === 'final'">
+            <div class="w-full max-w-md animate-game">
+                <div class="glass p-8 rounded-[3rem] border-pink-500/30 text-center space-y-6">
+                    <div class="text-5xl mb-4">✨</div>
+                    <h2 class="text-3xl font-bold neon-text" style="font-family: 'Dancing Script';">Has llegado al final</h2>
+                    
+                    <div class="text-left space-y-4 text-slate-300 italic text-lg leading-relaxed max-h-[40vh] overflow-y-auto pr-2">
+                        <p>hola mi amor, y hoy has demostrado que tú también guardas un pedacito de mi vida en tu corazón.</p>
+                        <p>Desde el primer día en la <strong>iglesia</strong>, cada paso ha valido la pena.</p>
+                        <p>Este cofre no guarda oro, guarda la promesa de que yo siempre estare ahí para ti, cuidando de cada detalle, de cada 2 de septiembre y de cada sueño juntos.</p>
+                        <p class="text-pink-400 font-bold text-center">Te amo, mi preciosa natyllita. ❤️</p>
+                    </div>
+
+                    <button @click="finish()" class="w-full bg-green-600/20 border border-green-500/50 p-5 rounded-2xl font-bold text-green-400 flex items-center justify-center gap-3 hover:bg-green-600/30 transition-all">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.128l-1.121 4.104 4.204-1.103c.843.458 1.831.782 2.66.782 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.768-5.766zm3.29 8.087c-.147.42-.763.79-1.057.84-.29.046-.667.067-1.077-.07-.253-.082-.571-.194-.962-.36-1.662-.71-2.736-2.433-2.82-2.544-.08-.11-.662-.876-.662-1.673 0-.796.413-1.186.562-1.348.146-.16.323-.2.428-.2.106 0 .213.002.303.006.1.004.23-.034.363.29.13.317.446 1.087.485 1.166.039.079.065.17.011.273-.05.103-.08.167-.156.252-.078.086-.162.193-.23.258-.078.07-.156.15-.065.31.091.155.405.67.87 1.085.603.535 1.11.7 1.27.778.16.075.253.064.347-.044.093-.106.393-.456.498-.61.106-.156.212-.132.356-.079.146.053.924.436 1.082.514.16.08.266.118.306.188.04.07.04.407-.107.826z"/></svg>
+                        AVISAR A GUILLERMO
+                    </button>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        function gameHandler() {
+            return {
+                view: 'start',
+                index: 0,
+                currentAnswer: '',
+                allData: [],
+                questions: [
+                    { q: "¿Cuál es mi color favorito?", k: "Color" },
+                    { q: "¿Cuál es mi comida favorita?", k: "Comida" },
+                    { q: "¿Cuál es mi bebida favorita para acompañar?", k: "Bebida" },
+                    { q: "¿Cuál es mi película favorita?", k: "Película" },
+                    { q: "¿Qué prefiero: fiesta o quedarme en casa?", k: "Plan" },
+                    { q: "¿Prefiero el frío o el calor?", k: "Clima" },
+                    { q: "¿En qué lugar nos conocimos?", k: "Lugar Origen" },
+                    { q: "¿Fecha exacta de nuestro aniversario?", k: "Aniversario" },
+                    { q: "¿A dónde sueño que vayamos de viaje?", k: "Viaje" },
+                    { q: "¿Qué es lo que más me gusta hacer para relajarme?", k: "Relax" }
+                ],
+                startChallenge() {
+                    this.view = 'quiz';
+                },
+                nextStep(skipped = false) {
+                    let ans = skipped ? "No respondió" : (this.currentAnswer || "Sin respuesta");
+                    this.allData.push(`${this.questions[this.index].k}: ${ans}`);
+                    
+                    if (this.index < this.questions.length - 1) {
+                        this.index++;
+                        this.currentAnswer = '';
+                        confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 }, colors: ['#ff2d75'] });
+                    } else {
+                        this.view = 'final';
+                        confetti({ particleCount: 150, spread: 70, origin: { y: 0.5 } });
+                    }
+                },
+                finish() {
+                    const phone = "584124683230";
+                    const header = "¡HOLA GUILLERMO! Nazaret ha completado el enigma. ❤️\n\n";
+                    const body = this.allData.join("\n");
+                    const fullMsg = encodeURIComponent(header + body + "\n\n¡TE AMO!");
+                    window.open(`https://wa.me/${phone}?text=${fullMsg}`, '_blank');
+                }
+            }
+        }
+
+        // --- Sistema de Corazones Flotantes (Canvas) ---
+        function initCanvas() {
+            const canvas = document.getElementById('heartCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, hearts = [];
+
+            const setCanvasSize = () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            };
+
+            class Heart {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * w;
+                    this.y = h + Math.random() * 100;
+                    this.size = Math.random() * 15 + 10;
+                    this.speed = Math.random() * 1 + 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                    this.wiggle = Math.random() * 2;
+                }
+                update() {
+                    this.y -= this.speed;
+                    this.x += Math.sin(this.y / 30) * 0.5;
+                    if (this.y < -20) this.reset();
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(255, 45, 117, ${this.opacity})`;
+                    ctx.font = `${this.size}px Arial`;
+                    ctx.fillText('❤️', this.x, this.y);
+                }
+            }
+
+            setCanvasSize();
+            for(let i=0; i<30; i++) hearts.push(new Heart());
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                hearts.forEach(h => { h.update(); h.draw(); });
+                requestAnimationFrame(animate);
+            }
+            animate();
+            window.addEventListener('resize', setCanvasSize);
+        }
+    </script>
+</body>
+</html>
