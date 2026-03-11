@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever One | Luxury Experience</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#B8860B', 
+                        deepBlack: '#000000',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* Prevenir scroll horizontal */
+        body, html { 
+            overflow-x: hidden; 
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Efecto de Texto Dorado Metálico */
+        .metal-gold-text {
+            background: linear-gradient(135deg, #8B6508 0%, #B8860B 25%, #f3cf7a 50%, #B8860B 75%, #8B6508 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 6s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* Navegación Glassmorphism */
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-link {
+            @apply text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-white/70 hover:text-gold transition-all duration-300 relative;
+        }
+        .nav-link::after {
+            content: '';
+            @apply absolute -bottom-1 left-0 w-0 h-px bg-gold transition-all duration-500;
+        }
+        .nav-link:hover::after { @apply w-full; }
+
+        /* Animación de entrada Hero */
+        @keyframes heroUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-heroUp { animation: heroUp 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        
+        .soft-shadow { box-shadow: 0 15px 40px -10px rgba(184, 134, 11, 0.4); }
+    </style>
+</head>
+
+<body class="bg-black text-white font-sans antialiased" 
+      x-data="{ mobileMenuOpen: false, atTop: true }"
+      :class="{ 'overflow-hidden': mobileMenuOpen }"
+      @scroll.window="atTop = (window.pageYOffset > 50 ? false : true)">
+<!-- menu -->
+    <nav :class="{ 'py-4 glass-nav border-b border-gold/20': !atTop || mobileMenuOpen, 'py-8 bg-transparent': atTop && !mobileMenuOpen }"
+         class="fixed top-0 w-full z-[1000] transition-all duration-500">
+        
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            
+            <a href="#" class="group relative z-[1100]">
+                <span class="text-xl md:text-3xl font-serif font-black italic tracking-tighter text-white">
+                    Forever <span class="metal-gold-text inline-block -ml-0.5 md:-ml-2">One</span>
+                </span>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="Catalogos.html" class="nav-link">catálogos</a>
+                <a href="asesorias.html" class="nav-link">Asesorías</a>
+                <a href="colecciones.html" class="nav-link">Colecciones</a>
+                <a href="contacto.html" 
+                   class="ml-4 px-6 py-2 border border-gold/40 text-gold text-[9px] uppercase tracking-[0.4em] font-black hover:bg-gold hover:text-black transition-all duration-500">
+                    Contacto
+                </a>
+            </div>
+
+            <button @click="mobileMenuOpen = !mobileMenuOpen" 
+                    class="lg:hidden relative z-[1100] p-2 outline-none focus:outline-none"
+                    aria-label="Menú">
+                <div class="w-6 space-y-1.5">
+                    <span :class="mobileMenuOpen ? 'bg-gold rotate-45 translate-y-2' : (atTop ? 'bg-white' : 'bg-gold')" 
+                          class="block h-0.5 w-full transition-all duration-300 origin-center"></span>
+                    
+                    <span :class="mobileMenuOpen ? 'opacity-0' : (atTop ? 'bg-white' : 'bg-gold')" 
+                          class="block h-0.5 w-full transition-all duration-300"></span>
+                    
+                    <span :class="mobileMenuOpen ? 'bg-gold -rotate-45 -translate-y-2' : (atTop ? 'bg-white' : 'bg-gold')" 
+                          class="block h-0.5 w-full transition-all duration-300 origin-center"></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <div x-show="mobileMenuOpen" 
+         x-transition:enter="transition ease-out duration-400"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         x-cloak
+         class="fixed inset-0 bg-black z-[900] flex flex-col justify-center items-center">
+        
+        <div class="flex flex-col gap-8 text-center px-6">
+            <a @click="mobileMenuOpen = false" href="index.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Inicio</a>
+            
+            <a @click="mobileMenuOpen = false" href="Catalogos.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Catálogo</a>
+            
+            <a @click="mobileMenuOpen = false" href="asesorias.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Asesoría</a>
+            
+            <a @click="mobileMenuOpen = false" href="colecciones.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Colecciones</a>
+            
+            <div class="mt-4">
+                <a @click="mobileMenuOpen = false" href="contacto.html" 
+                   class="inline-block px-10 py-4 border border-gold/50 text-gold text-[9px] uppercase tracking-[0.4em] font-black hover:bg-gold hover:text-black transition-all">
+                    Contacto
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-0 w-full text-center opacity-5 pointer-events-none">
+            <span class="text-[7rem] font-serif font-black text-gold italic">FO1</span>
+        </div>
+    </div>
+<!-- hero -->
+<section id="catalog-hero" class="relative min-h-[60vh] md:min-h-[75vh] flex items-center justify-center bg-black overflow-hidden w-full border-b border-gold/10">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2000" 
+             alt="Forever One Luxury Fashion" 
+             class="w-full h-full object-cover opacity-60 animate-kenBurns transition-all duration-1000">
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/80 to-black"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center drop-shadow-lg">
+        <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1500">
+             <br>
+             <br>
+             <br>
+             <br>
+            <h1 class="text-5xl md:text-8xl font-serif font-black tracking-tighter mb-8 italic leading-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+                Acceso <span class="metal-gold-text inline-block pr-4">Exclusivo</span>
+            </h1>
+
+            <p class="text-slate-200 text-sm md:text-lg font-light tracking-wide max-w-2xl mx-auto leading-relaxed italic mb-10">
+                Explore nuestra biblioteca digital de alta resolución. Material reservado para la comunidad de <span class="text-white font-bold">Forever One</span>.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="absolute -bottom-10 right-10 opacity-[0.03] pointer-events-none hidden md:block">
+        <span class="text-[12rem] font-serif font-black text-white italic">DOWNLOADS</span>
+    </div>
+</section>
+
+<style>
+    @keyframes kenBurns {
+        0% { transform: scale(1) translate(0%, 0%); }
+        100% { transform: scale(1.1) translate(-2%, -1%); }
+    }
+    .animate-kenBurns {
+        animation: kenBurns 20s ease-in-out infinite alternate;
+    }
+
+    .metal-gold-text {
+        background: linear-gradient(135deg, #B8860B 0%, #f3cf7a 50%, #8B6508 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% auto;
+        animation: shine 6s linear infinite;
+        padding-right: 0.1em;
+    }
+    @keyframes shine {
+        to { background-position: 200% center; }
+    }
+</style>
+<!-- seccion 1 -->
+ <section id="catalogos" class="py-24 bg-[#F9F8F6]" x-data="{ activeFilter: 'todos' }">
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="flex flex-wrap justify-center items-center gap-3 md:gap-6 mb-20" data-aos="fade-up">
+            <button @click="activeFilter = 'todos'" 
+                :class="activeFilter === 'todos' ? 'bg-metal-gold text-white border-transparent shadow-lg' : 'bg-white text-[#1A1A1A] border-gold/20'"
+                class="min-w-[120px] px-8 py-3 border text-[10px] uppercase tracking-[0.4em] font-black transition-all duration-500">Todos</button>
+            
+            <button @click="activeFilter = 'hombre'" 
+                :class="activeFilter === 'hombre' ? 'bg-metal-gold text-white border-transparent shadow-lg' : 'bg-white text-[#1A1A1A] border-gold/20'"
+                class="min-w-[120px] px-8 py-3 border text-[10px] uppercase tracking-[0.4em] font-black transition-all duration-500">Hombre</button>
+            
+            <button @click="activeFilter = 'mujer'" 
+                :class="activeFilter === 'mujer' ? 'bg-metal-gold text-white border-transparent shadow-lg' : 'bg-white text-[#1A1A1A] border-gold/20'"
+                class="min-w-[120px] px-8 py-3 border text-[10px] uppercase tracking-[0.4em] font-black transition-all duration-500">Mujer</button>
+            
+            <button @click="activeFilter = 'resort'" 
+                :class="activeFilter === 'resort' ? 'bg-metal-gold text-white border-transparent shadow-lg' : 'bg-white text-[#1A1A1A] border-gold/20'"
+                class="min-w-[120px] px-8 py-3 border text-[10px] uppercase tracking-[0.4em] font-black transition-all duration-500">Resort</button>
+            
+            <button @click="activeFilter = 'accesorios'" 
+                :class="activeFilter === 'accesorios' ? 'bg-metal-gold text-white border-transparent shadow-lg' : 'bg-white text-[#1A1A1A] border-gold/20'"
+                class="min-w-[120px] px-8 py-3 border text-[10px] uppercase tracking-[0.4em] font-black transition-all duration-500">Accesorios</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+            <div x-show="activeFilter === 'todos' || activeFilter === 'hombre'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Hombre</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Urban Luxury V1</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+            <div x-show="activeFilter === 'todos' || activeFilter === 'hombre'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1550246140-5119ae4790b8?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Hombre</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Sastrería Noble</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+
+            <div x-show="activeFilter === 'todos' || activeFilter === 'mujer'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Mujer</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Seda & Esencia</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+            <div x-show="activeFilter === 'todos' || activeFilter === 'mujer'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Mujer</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Noche Eterna</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+
+            <div x-show="activeFilter === 'todos' || activeFilter === 'resort'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Resort</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Brisa Marina</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+            <div x-show="activeFilter === 'todos' || activeFilter === 'resort'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Resort</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Solsticio Fo1</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+
+            <div x-show="activeFilter === 'todos' || activeFilter === 'accesorios'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Accesorios</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Oro & Cuero</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+            <div x-show="activeFilter === 'todos' || activeFilter === 'accesorios'" class="group">
+                <div class="relative overflow-hidden bg-white p-3 shadow-sm border border-gold/5">
+                    <img src="https://images.unsplash.com/photo-1509112756314-34a0badb29d4?auto=format&fit=crop&q=80&w=800" class="w-full h-[350px] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
+                    <div class="absolute top-6 left-6"><span class="bg-black/80 text-white text-[7px] uppercase tracking-[0.3em] px-2 py-1">Accesorios</span></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <h5 class="text-lg font-serif font-black italic text-[#1A1A1A] mb-3">Relojería F1</h5>
+                    <a href="catalogo.pdf" class="btn-metal-gold block py-3 text-[9px] uppercase tracking-[0.4em] font-black text-white shadow-lg">Descargar PDF</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    .btn-metal-gold {
+        background: linear-gradient(135deg, #8B6508 0%, #B8860B 25%, #f3cf7a 50%, #B8860B 75%, #8B6508 100%);
+        background-size: 200% auto;
+        animation: shineBtn 5s linear infinite;
+        transition: transform 0.3s ease;
+    }
+    .btn-metal-gold:hover { transform: translateY(-2px); }
+    @keyframes shineBtn { to { background-position: 200% center; } }
+    .bg-metal-gold { background: linear-gradient(135deg, #B8860B 0%, #8B6508 100%); }
+</style>
+<!-- seccion 2 -->
+ <section id="suscripcion-vip" class="py-24 bg-[#F9F8F6] border-t border-gold/10 overflow-hidden w-full">
+    <div class="max-w-4xl mx-auto px-6 relative">
+        
+        <div class="bg-white p-10 md:p-16 text-center shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gold/10 relative overflow-hidden" data-aos="zoom-in">
+            
+            <div class="absolute inset-0 opacity-[0.03] pointer-events-none flex items-center justify-center">
+                <span class="text-[15rem] font-serif font-black italic">VIP</span>
+            </div>
+
+            <div class="relative z-10">
+                <div class="mb-8 inline-flex items-center justify-center w-16 h-16 border border-gold/30 rounded-full bg-gold/5">
+                    <svg class="w-8 h-8 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.148-.67-1.614-.918-2.213-.242-.588-.487-.51-.67-.51-.172-.001-.371-.001-.57-.001-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                </div>
+
+                <h4 class="text-gold font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Acceso Anticipado</h4>
+                <h3 class="text-3xl md:text-5xl font-serif font-black italic text-[#1A1A1A] mb-6">
+                    Primicias <span class="metal-gold-text">en su Móvil</span>
+                </h3>
+                
+                <p class="text-slate-500 text-sm md:text-base font-light italic leading-relaxed max-w-xl mx-auto mb-10">
+                    Únase a nuestra selecta comunidad de WhatsApp. Suscríbase para recibir los nuevos catálogos de <span class="text-[#1A1A1A] font-bold">Forever One</span> antes que nadie y asegure sus piezas favoritas.
+                </p>
+
+                <div class="flex justify-center">
+                    <a href="https://wa.me/584244557693" 
+                       target="_blank"
+                       class="btn-metal-gold flex items-center gap-4 px-12 py-5 text-[10px] uppercase tracking-[0.4em] font-black text-white shadow-2xl hover:scale-105 transition-all duration-500">
+                        <span>Unirse a la Comunidad</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+
+                <p class="mt-8 text-[9px] text-slate-400 uppercase tracking-widest">
+                    * Sin spam. Solo alta costura y lanzamientos oficiales.
+                </p>
+            </div>
+
+            <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-gold/20"></div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-gold/20"></div>
+
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+ <footer class="relative bg-black pt-20 pb-10 border-t border-white/5 overflow-hidden w-full">
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20 text-center lg:text-left">
+            
+            <div data-aos="fade-up">
+                <a href="#" class="inline-block mb-6">
+                    <span class="text-2xl font-serif font-black italic tracking-tighter text-white">
+                        Forever <span class="metal-gold-text inline-block -ml-1 pr-2">One</span>
+                    </span>
+                </a>
+                <p class="text-slate-500 text-xs leading-relaxed mb-8 italic max-w-xs mx-auto lg:mx-0">
+                    "El Emblema de Distinción". Redefiniendo el lujo contemporáneo a través de la exclusividad textil.
+                </p>
+                
+                <div class="flex justify-center lg:justify-start gap-5">
+                    <a href="https://www.instagram.com/foreveronefashion?igsh=MXdvZDE4b2Ziajh1MA==" class="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all duration-500 shadow-lg shadow-gold/5">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@foreveronefashion?_r=1&_t=ZS-94bnu6iArP3" class="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all duration-500 shadow-lg shadow-gold/5">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.6-4.12-1.31a6.417 6.417 0 01-1.87-1.54v8.13c.01 2.15-.45 4.33-1.74 6.02-1.31 1.73-3.43 2.78-5.57 2.69-2.23-.05-4.43-1.12-5.74-2.93-1.31-1.81-1.58-4.22-.73-6.28.84-2.03 2.87-3.53 5.06-3.72v4.05c-1.28.11-2.52.84-3.13 1.96-.61 1.12-.5 2.54.29 3.5.79.97 2.11 1.35 3.3.97 1.19-.38 2.02-1.53 2.02-2.78V.02z"/></svg>
+                    </a>
+                    <a href="https://wa.me/584244557693" class="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all duration-500 shadow-lg shadow-gold/5">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.148-.67-1.614-.918-2.213-.242-.588-.487-.51-.67-.51-.172-.001-.371-.001-.57-.001-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h4 class="text-white font-bold uppercase tracking-[0.4em] text-[10px] mb-8">Navegación</h4>
+                <ul class="space-y-4 text-[11px] uppercase tracking-widest">
+                    <li><a href="index.html" class="text-slate-500 hover:text-gold transition-colors">Inicio</a></li>
+                    <li><a href="Catalogos.html" class="text-slate-500 hover:text-gold transition-colors">Catálogos</a></li>
+                    <li><a href="asesorias.html" class="text-slate-500 hover:text-gold transition-colors">Asesorías</a></li>
+                    <li><a href="colecciones.html" class="text-slate-500 hover:text-gold transition-colors">Colecciones</a></li>
+                </ul>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="400">
+                <h4 class="text-white font-bold uppercase tracking-[0.4em] text-[10px] mb-8">Legal</h4>
+                <ul class="space-y-4 text-[11px] uppercase tracking-widest">
+                    <li><a href="#" class="text-slate-500 hover:text-gold transition-colors">Privacidad</a></li>
+                    <li><a href="#" class="text-slate-500 hover:text-gold transition-colors">Términos</a></li>
+                    <li><a href="#" class="text-slate-500 hover:text-gold transition-colors">Cookies</a></li>
+                </ul>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="600">
+                <h4 class="text-white font-bold uppercase tracking-[0.4em] text-[10px] mb-8">Contacto</h4>
+                <p class="text-slate-500 text-[11px] uppercase tracking-widest mb-6">Shopping Concierge Global</p>
+                <a href="https://wa.me/584244557693" class="group flex items-center justify-center lg:justify-start gap-4 text-gold font-black uppercase text-[10px] tracking-[0.3em]">
+                    <span>Chat Directo</span>
+                    <div class="w-8 h-px bg-gold/50 group-hover:w-12 transition-all duration-500"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="pt-12 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8">
+            <span class="text-[9px] text-slate-700 uppercase tracking-[0.5em] text-center">
+                &copy; 2026 Forever One — High End Fashion House
+            </span>
+            <span class="text-[9px] text-slate-700 uppercase tracking-[0.5em]">
+                Hecho con distinción
+            </span>
+        </div>
+    </div>
+
+    <div class="absolute -bottom-10 -left-10 opacity-[0.02] pointer-events-none select-none">
+        <span class="text-[20rem] font-serif font-black text-white leading-none italic">FO1</span>
+    </div>
+</footer>
+
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 1000 });
+    </script>
+    </body>
+</html>

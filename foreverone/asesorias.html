@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever One | Luxury Experience</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#B8860B', 
+                        deepBlack: '#000000',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* Prevenir scroll horizontal */
+        body, html { 
+            overflow-x: hidden; 
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Efecto de Texto Dorado Metálico */
+        .metal-gold-text {
+            background: linear-gradient(135deg, #8B6508 0%, #B8860B 25%, #f3cf7a 50%, #B8860B 75%, #8B6508 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 6s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* Navegación Glassmorphism */
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-link {
+            @apply text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-white/70 hover:text-gold transition-all duration-300 relative;
+        }
+        .nav-link::after {
+            content: '';
+            @apply absolute -bottom-1 left-0 w-0 h-px bg-gold transition-all duration-500;
+        }
+        .nav-link:hover::after { @apply w-full; }
+
+        /* Animación de entrada Hero */
+        @keyframes heroUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-heroUp { animation: heroUp 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        
+        .soft-shadow { box-shadow: 0 15px 40px -10px rgba(184, 134, 11, 0.4); }
+    </style>
+</head>
+
+<body class="bg-black text-white font-sans antialiased" 
+      x-data="{ mobileMenuOpen: false, atTop: true }"
+      :class="{ 'overflow-hidden': mobileMenuOpen }"
+      @scroll.window="atTop = (window.pageYOffset > 50 ? false : true)">
+<!-- menu -->
+    <nav :class="{ 'py-4 glass-nav border-b border-gold/20': !atTop || mobileMenuOpen, 'py-8 bg-transparent': atTop && !mobileMenuOpen }"
+         class="fixed top-0 w-full z-[1000] transition-all duration-500">
+        
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            
+            <a href="#" class="group relative z-[1100]">
+                <span class="text-xl md:text-3xl font-serif font-black italic tracking-tighter text-white">
+                    Forever <span class="metal-gold-text inline-block -ml-0.5 md:-ml-2">One</span>
+                </span>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="Catalogos.html" class="nav-link">catálogos</a>
+                <a href="asesorias.html" class="nav-link">Asesorías</a>
+                <a href="colecciones.html" class="nav-link">Colecciones</a>
+                <a href="contacto.html" 
+                   class="ml-4 px-6 py-2 border border-gold/40 text-gold text-[9px] uppercase tracking-[0.4em] font-black hover:bg-gold hover:text-black transition-all duration-500">
+                    Contacto
+                </a>
+            </div>
+
+            <button @click="mobileMenuOpen = !mobileMenuOpen" 
+                    class="lg:hidden relative z-[1100] p-2 outline-none focus:outline-none"
+                    aria-label="Menú">
+                <div class="w-6 space-y-1.5">
+                    <span :class="mobileMenuOpen ? 'bg-gold rotate-45 translate-y-2' : (atTop ? 'bg-white' : 'bg-gold')" 
+                          class="block h-0.5 w-full transition-all duration-300 origin-center"></span>
+                    
+                    <span :class="mobileMenuOpen ? 'opacity-0' : (atTop ? 'bg-white' : 'bg-gold')" 
+                          class="block h-0.5 w-full transition-all duration-300"></span>
+                    
+                    <span :class="mobileMenuOpen ? 'bg-gold -rotate-45 -translate-y-2' : (atTop ? 'bg-white' : 'bg-gold')" 
+                          class="block h-0.5 w-full transition-all duration-300 origin-center"></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <div x-show="mobileMenuOpen" 
+         x-transition:enter="transition ease-out duration-400"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         x-cloak
+         class="fixed inset-0 bg-black z-[900] flex flex-col justify-center items-center">
+        
+        <div class="flex flex-col gap-8 text-center px-6">
+            <a @click="mobileMenuOpen = false" href="index.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Inicio</a>
+            
+            <a @click="mobileMenuOpen = false" href="Catalogos.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Catálogo</a>
+            
+            <a @click="mobileMenuOpen = false" href="asesorias.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Asesoría</a>
+            
+            <a @click="mobileMenuOpen = false" href="colecciones.html" 
+               class="text-[11px] uppercase tracking-[0.6em] text-white/90 hover:text-gold transition-colors font-bold">Colecciones</a>
+            
+            <div class="mt-4">
+                <a @click="mobileMenuOpen = false" href="contacto.html" 
+                   class="inline-block px-10 py-4 border border-gold/50 text-gold text-[9px] uppercase tracking-[0.4em] font-black hover:bg-gold hover:text-black transition-all">
+                    Contacto
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-0 w-full text-center opacity-5 pointer-events-none">
+            <span class="text-[7rem] font-serif font-black text-gold italic">FO1</span>
+        </div>
+    </div>
+
+<!-- Hero -->
+<section id="concierge-hero" class="relative min-h-[70vh] md:min-h-[85vh] flex items-center justify-center bg-black overflow-hidden w-full border-b border-gold/10">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2000" 
+             alt="Digital Fashion Selection Forever One" 
+             class="w-full h-full object-cover opacity-50 grayscale animate-kenBurns">
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center drop-shadow-2xl">
+        <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1500">
+             <br>
+             <br>
+             <br>
+            <h1 class="text-5xl md:text-8xl font-serif font-black tracking-tighter mb-8 italic leading-tight text-white">
+                Shopping <span class="metal-gold-text inline-block pr-4">Concierge</span>
+            </h1>
+
+            <p class="text-slate-200 text-sm md:text-xl font-light tracking-wide max-w-2xl mx-auto leading-relaxed italic mb-12">
+                Simplificamos la complejidad de las compras globales. Convertimos su experiencia en Amazon, Alibaba y Shein en un proceso seguro, audaz y exclusivo de <span class="text-white font-bold">Forever One</span>.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="absolute -bottom-10 right-10 opacity-[0.03] pointer-events-none hidden md:block">
+        <span class="text-[12rem] font-serif font-black text-white italic">GLOBAL SHOP</span>
+    </div>
+</section>
+
+<style>
+    @keyframes kenBurns {
+        0% { transform: scale(1) translate(0%, 0%); }
+        100% { transform: scale(1.1) translate(-2%, -1%); }
+    }
+    .animate-kenBurns {
+        animation: kenBurns 25s ease-in-out infinite alternate;
+    }
+
+    .metal-gold-text {
+        background: linear-gradient(135deg, #B8860B 0%, #f3cf7a 50%, #8B6508 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% auto;
+        animation: shine 6s linear infinite;
+        padding-right: 0.1em;
+    }
+    @keyframes shine {
+        to { background-position: 200% center; }
+    }
+</style>
+
+<!-- seccion 1 -->
+<section id="comparativa-servicio" class="py-24 md:py-32 bg-[#F9F8F6] overflow-hidden w-full">
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="text-center mb-20" data-aos="fade-up">
+            <h3 class="text-gold font-bold tracking-[0.5em] uppercase text-[10px] mb-4">¿Por qué elegirnos?</h3>
+            <h4 class="text-3xl md:text-5xl font-serif text-[#1A1A1A] font-black italic">
+                La Inteligencia de <span class="metal-gold-text">Comprar Seguro</span>
+            </h4>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+            
+            <div class="group relative p-8 md:p-12 pb-20 md:pb-12 bg-white border border-red-900/10 shadow-sm transition-all duration-700" data-aos="fade-right">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 rounded-full border border-red-200 flex items-center justify-center text-red-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <h5 class="text-xl font-serif font-black italic text-slate-800">El Riesgo del Usuario</h5>
+                </div>
+
+                <ul class="space-y-6 relative z-10">
+                    <li class="flex gap-4">
+                        <span class="text-red-400 font-bold">✕</span>
+                        <p class="text-slate-500 text-sm italic font-light">Exposición a proveedores fraudulentos en Alibaba y Shein.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-red-400 font-bold">✕</span>
+                        <p class="text-slate-500 text-sm italic font-light">Retenciones inesperadas en aduanas y sobrecostos logísticos.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-red-400 font-bold">✕</span>
+                        <p class="text-slate-500 text-sm italic font-light">Incertidumbre total sobre la calidad real de los textiles recibidos.</p>
+                    </li>
+                </ul>
+                <span class="absolute bottom-2 right-4 md:bottom-4 md:right-8 text-3xl md:text-4xl font-serif font-black text-red-900/5 uppercase pointer-events-none">Riesgo</span>
+            </div>
+
+            <div class="group relative p-8 md:p-12 pb-20 md:pb-12 bg-[#1A1A1A] border border-gold/20 shadow-2xl transition-all duration-700" data-aos="fade-left">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 rounded-full border border-gold flex items-center justify-center text-gold shadow-[0_0_15px_rgba(184,134,11,0.3)]">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h5 class="text-xl font-serif font-black italic text-white">La Solución Forever One</h5>
+                </div>
+
+                <ul class="space-y-6 relative z-10">
+                    <li class="flex gap-4">
+                        <span class="text-gold font-bold">✓</span>
+                        <p class="text-slate-300 text-sm italic font-light">Auditoría exhaustiva de proveedores para compras blindadas.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-gold font-bold">✓</span>
+                        <p class="text-slate-300 text-sm italic font-light">Gestión aduanal experta: su mercancía llega sin contratiempos.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-gold font-bold">✓</span>
+                        <p class="text-slate-300 text-sm italic font-light">Curaduría de calidad: aseguramos que lo que compra sea lo que recibe.</p>
+                    </li>
+                </ul>
+                <span class="absolute bottom-2 right-4 md:bottom-4 md:right-8 text-3xl md:text-4xl font-serif font-black text-white/5 uppercase pointer-events-none">Seguro</span>
+                
+                <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- seccion 2 -->
+<section id="metodologia" class="py-24 md:py-32 bg-white overflow-hidden w-full">
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+            <div data-aos="fade-up">
+                <h3 class="text-gold font-bold tracking-[0.5em] uppercase text-[10px] mb-4">El Método FO1</h3>
+                <h4 class="text-4xl md:text-6xl font-serif text-[#1A1A1A] font-black leading-none tracking-tighter italic">
+                    Ingeniería de <span class="text-slate-300">Compra</span>
+                </h4>
+            </div>
+            <p class="text-slate-500 max-w-xs text-sm md:text-base font-light italic" data-aos="fade-up" data-aos-delay="200">
+                Un protocolo de tres fases diseñado para eliminar la incertidumbre y maximizar su inversión global.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            
+            <div class="absolute top-1/2 left-0 w-full h-px bg-gold/10 hidden md:block -translate-y-1/2"></div>
+
+            <div class="relative group" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white border border-gold/10 p-10 relative z-10 transition-all duration-700 group-hover:border-gold group-hover:-translate-y-2">
+                    <span class="text-5xl font-serif font-black text-gold/10 absolute top-4 right-8 group-hover:text-gold/20 transition-colors">01</span>
+                    <div class="w-12 h-12 mb-8 border border-gold flex items-center justify-center rotate-45 group-hover:bg-gold transition-all duration-700">
+                        <svg class="w-5 h-5 text-gold group-hover:text-white -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <h5 class="text-xl font-serif font-black text-[#1A1A1A] italic mb-4">Selección Estratégica</h5>
+                    <p class="text-slate-500 text-sm leading-relaxed font-light">
+                        Analizamos sus deseos de compra en Amazon o Shein. Le asesoramos sobre qué productos tienen la mejor relación calidad-precio y cuáles evitar.
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative group" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white border border-gold/10 p-10 relative z-10 transition-all duration-700 group-hover:border-gold group-hover:-translate-y-2 shadow-xl shadow-black/5">
+                    <span class="text-5xl font-serif font-black text-gold/10 absolute top-4 right-8 group-hover:text-gold/20 transition-colors">02</span>
+                    <div class="w-12 h-12 mb-8 border border-gold flex items-center justify-center rotate-45 group-hover:bg-gold transition-all duration-700">
+                        <svg class="w-5 h-5 text-gold group-hover:text-white -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h5 class="text-xl font-serif font-black text-[#1A1A1A] italic mb-4">Auditoría de Proveedor</h5>
+                    <p class="text-slate-500 text-sm leading-relaxed font-light">
+                        Especialmente en Alibaba, verificamos la reputación del fabricante. Validamos certificaciones y historial para asegurar una transacción blindada.
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative group" data-aos="fade-up" data-aos-delay="500">
+                <div class="bg-white border border-gold/10 p-10 relative z-10 transition-all duration-700 group-hover:border-gold group-hover:-translate-y-2">
+                    <span class="text-5xl font-serif font-black text-gold/10 absolute top-4 right-8 group-hover:text-gold/20 transition-colors">03</span>
+                    <div class="w-12 h-12 mb-8 border border-gold flex items-center justify-center rotate-45 group-hover:bg-gold transition-all duration-700">
+                        <svg class="w-5 h-5 text-gold group-hover:text-white -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4a2 2 0 012-2m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                    </div>
+                    <h5 class="text-xl font-serif font-black text-[#1A1A1A] italic mb-4">Logística Blindada</h5>
+                    <p class="text-slate-500 text-sm leading-relaxed font-light">
+                        Gestionamos el transporte nacional e internacional, incluyendo trámites aduanales, hasta que el paquete esté en sus manos con total seguridad.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- seccion 3 -->
+<section id="plataformas" class="py-32 bg-[#F2F2F2] border-t border-b border-gold/10 overflow-hidden w-full">
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="text-center mb-28" data-aos="fade-up">
+            <span class="text-gold font-bold tracking-[0.6em] uppercase text-[11px] mb-4 block">Conexión Global Máxima</span>
+            <h5 class="text-3xl md:text-5xl font-serif text-[#1A1A1A] font-black italic">
+                Especialistas en <span class="text-slate-400">Compras Internacionales</span>
+            </h5>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-24 md:gap-40 items-center">
+            
+            <div class="flex flex-col items-center group" data-aos="zoom-in">
+                <div class="h-48 md:h-64 flex items-center justify-center grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 transform group-hover:scale-110">
+                    <img src="amazonlogo.svg" alt="Amazon" class="h-24 md:h-40 w-auto object-contain">
+                </div>
+                <p class="mt-12 text-[12px] uppercase tracking-[0.7em] text-slate-500 font-black opacity-0 group-hover:opacity-100 transition-all duration-500">Gestión Prime VIP</p>
+            </div>
+
+            <div class="flex flex-col items-center group" data-aos="zoom-in" data-aos-delay="200">
+                <div class="h-48 md:h-64 flex items-center justify-center grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 transform group-hover:scale-110">
+                    <img src="alibabalogo.svg" alt="Alibaba" class="h-32 md:h-52 w-auto object-contain">
+                </div>
+                <p class="mt-12 text-[12px] uppercase tracking-[0.7em] text-slate-500 font-black opacity-0 group-hover:opacity-100 transition-all duration-500">Auditoría de Fábrica</p>
+            </div>
+
+            <div class="flex flex-col items-center group" data-aos="zoom-in" data-aos-delay="400">
+                <div class="h-48 md:h-64 flex items-center justify-center grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 transform group-hover:scale-110">
+                    <img src="sheinlogo.svg" alt="Shein" class="h-24 md:h-40 w-auto object-contain">
+                </div>
+                <p class="mt-12 text-[12px] uppercase tracking-[0.7em] text-slate-500 font-black opacity-0 group-hover:opacity-100 transition-all duration-500">Curaduría de Moda</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- seccion 4 -->
+ <section id="concierge-faq" class="py-24 md:py-32 bg-white overflow-hidden w-full" x-data="{ active: null }">
+    <div class="max-w-4xl mx-auto px-6">
+        
+        <div class="text-center mb-20" data-aos="fade-up">
+            <span class="text-gold font-bold tracking-[0.5em] uppercase text-[10px] mb-4 block">Resolviendo Dudas</span>
+            <h4 class="text-3xl md:text-5xl font-serif text-[#1A1A1A] font-black italic">
+                Claridad <span class="metal-gold-text">Sin Excepciones</span>
+            </h4>
+        </div>
+
+        <div class="space-y-4">
+
+            <div class="border-b border-gold/10" data-aos="fade-up" data-aos-delay="100">
+                <button @click="active = (active === 1 ? null : 1)" 
+                        class="w-full py-6 flex justify-between items-center text-left focus:outline-none group">
+                    <span class="text-lg md:text-xl font-serif font-black italic text-[#1A1A1A] group-hover:text-gold transition-colors">
+                        ¿Cómo gestionan el proceso de aduanas?
+                    </span>
+                    <span class="text-gold transition-transform duration-500" :class="active === 1 ? 'rotate-45' : 'rotate-0'">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path></svg>
+                    </span>
+                </button>
+                <div x-show="active === 1" x-collapse x-cloak>
+                    <div class="pb-8 text-slate-500 text-sm md:text-base font-light italic leading-relaxed">
+                        Nos encargamos de toda la documentación y clasificación arancelaria. Nuestro objetivo es que su mercancía cumpla con todas las regulaciones legales para evitar retenciones. Usted no tiene que preocuparse por trámites burocráticos; nosotros blindamos la entrada de sus productos.
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gold/10" data-aos="fade-up" data-aos-delay="200">
+                <button @click="active = (active === 2 ? null : 2)" 
+                        class="w-full py-6 flex justify-between items-center text-left focus:outline-none group">
+                    <span class="text-lg md:text-xl font-serif font-black italic text-[#1A1A1A] group-hover:text-gold transition-colors">
+                        ¿Cuáles son los tiempos estimados de entrega?
+                    </span>
+                    <span class="text-gold transition-transform duration-500" :class="active === 2 ? 'rotate-45' : 'rotate-0'">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path></svg>
+                    </span>
+                </button>
+                <div x-show="active === 2" x-collapse x-cloak>
+                    <div class="pb-8 text-slate-500 text-sm md:text-base font-light italic leading-relaxed">
+                        Los tiempos varían según la plataforma. Para Amazon (USA), el promedio es de 7 a 12 días hábiles. Para Alibaba y Shein (Asia), el tiempo estimado es de 15 a 25 días. Siempre mantenemos un sistema de rastreo activo para informarle sobre cada movimiento de su paquete.
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gold/10" data-aos="fade-up" data-aos-delay="300">
+                <button @click="active = (active === 3 ? null : 3)" 
+                        class="w-full py-6 flex justify-between items-center text-left focus:outline-none group">
+                    <span class="text-lg md:text-xl font-serif font-black italic text-[#1A1A1A] group-hover:text-gold transition-colors">
+                        ¿Qué incluye la tarifa de asesoría?
+                    </span>
+                    <span class="text-gold transition-transform duration-500" :class="active === 3 ? 'rotate-45' : 'rotate-0'">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path></svg>
+                    </span>
+                </button>
+                <div x-show="active === 3" x-collapse x-cloak>
+                    <div class="pb-8 text-slate-500 text-sm md:text-base font-light italic leading-relaxed">
+                        Incluye la selección estratégica de productos, la verificación de proveedores (especialmente en Alibaba), la consolidación de paquetes si es necesario y la gestión logística completa. Usted recibe un presupuesto transparente desde el inicio, sin costos ocultos.
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gold/10" data-aos="fade-up" data-aos-delay="400">
+                <button @click="active = (active === 4 ? null : 4)" 
+                        class="w-full py-6 flex justify-between items-center text-left focus:outline-none group">
+                    <span class="text-lg md:text-xl font-serif font-black italic text-[#1A1A1A] group-hover:text-gold transition-colors">
+                        ¿Qué pasa si el producto no es lo que esperaba?
+                    </span>
+                    <span class="text-gold transition-transform duration-500" :class="active === 4 ? 'rotate-45' : 'rotate-0'">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path></svg>
+                    </span>
+                </button>
+                <div x-show="active === 4" x-collapse x-cloak>
+                    <div class="pb-8 text-slate-500 text-sm md:text-base font-light italic leading-relaxed">
+                        Nuestra fase de Auditoría de Proveedor minimiza este riesgo al 99%. Sin embargo, si ocurriera un inconveniente, le asesoramos en el proceso de reclamo y retorno según las políticas de la plataforma original para proteger su capital.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- seccion 5 -->
+ <section id="cta-concierge" class="py-24 md:py-32 bg-[#1A1A1A] relative overflow-hidden w-full">
+    
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -skew-x-12 translate-x-1/4"></div>
+    
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <div class="bg-white/5 backdrop-blur-md border border-gold/20 p-8 md:p-20 text-center shadow-2xl" data-aos="zoom-in">
+            
+            <div class="mb-8">
+                <span class="text-gold font-bold tracking-[0.5em] uppercase text-[9px] md:text-xs">Atención Personalizada</span>
+            </div>
+
+            <h3 class="text-3xl md:text-6xl font-serif text-white font-black italic mb-8 leading-tight">
+                Comience su Experiencia <br>
+                <span class="metal-gold-text">Concierge Hoy</span>
+            </h3>
+
+            <p class="text-slate-300 text-sm md:text-xl font-light italic leading-relaxed max-w-2xl mx-auto mb-12">
+                Hable directamente con nuestra experta, <span class="text-white font-bold">Nazareth</span>, para transformar su lista de deseos en una logística real, segura y sin complicaciones.
+            </p>
+
+            <div class="flex justify-center">
+                <a href="https://wa.me/584244557693" 
+                   target="_blank"
+                   class="btn-metal-gold flex items-center gap-6 px-10 md:px-16 py-5 md:py-6 text-[10px] md:text-xs uppercase tracking-[0.5em] font-black text-white shadow-[0_20px_50px_rgba(184,134,11,0.3)] hover:scale-105 transition-all duration-700">
+                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.148-.67-1.614-.918-2.213-.242-.588-.487-.51-.67-.51-.172-.001-.371-.001-.57-.001-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    <span>Iniciar Asesoría VIP</span>
+                </a>
+            </div>
+
+            <p class="mt-12 text-[9px] md:text-[10px] text-slate-400 uppercase tracking-[0.4em]">
+                Respuesta inmediata · Sin cargos ocultos · Gestión global
+            </p>
+        </div>
+    </div>
+
+    <div class="absolute -bottom-10 left-10 opacity-[0.03] pointer-events-none hidden md:block">
+        <span class="text-[10rem] font-serif font-black text-white italic">ASSISTANCE</span>
+    </div>
+</section>
+<!-- Footer-->
+ <footer class="relative bg-black pt-20 pb-10 border-t border-white/5 overflow-hidden w-full">
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20 text-center lg:text-left">
+            
+            <div data-aos="fade-up">
+                <a href="#" class="inline-block mb-6">
+                    <span class="text-2xl font-serif font-black italic tracking-tighter text-white">
+                        Forever <span class="metal-gold-text inline-block -ml-1 pr-2">One</span>
+                    </span>
+                </a>
+                <p class="text-slate-500 text-xs leading-relaxed mb-8 italic max-w-xs mx-auto lg:mx-0">
+                    "El Emblema de Distinción". Redefiniendo el lujo contemporáneo a través de la exclusividad textil.
+                </p>
+                
+            <div class="flex justify-center lg:justify-start gap-5">
+                    <a href="https://www.instagram.com/foreveronefashion?igsh=MXdvZDE4b2Ziajh1MA==" class="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all duration-500 shadow-lg shadow-gold/5">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@foreveronefashion?_r=1&_t=ZS-94bnu6iArP3" class="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all duration-500 shadow-lg shadow-gold/5">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.6-4.12-1.31a6.417 6.417 0 01-1.87-1.54v8.13c.01 2.15-.45 4.33-1.74 6.02-1.31 1.73-3.43 2.78-5.57 2.69-2.23-.05-4.43-1.12-5.74-2.93-1.31-1.81-1.58-4.22-.73-6.28.84-2.03 2.87-3.53 5.06-3.72v4.05c-1.28.11-2.52.84-3.13 1.96-.61 1.12-.5 2.54.29 3.5.79.97 2.11 1.35 3.3.97 1.19-.38 2.02-1.53 2.02-2.78V.02z"/></svg>
+                    </a>
+                    <a href="https://wa.me/584244557693" class="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all duration-500 shadow-lg shadow-gold/5">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.148-.67-1.614-.918-2.213-.242-.588-.487-.51-.67-.51-.172-.001-.371-.001-.57-.001-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h4 class="text-white font-bold uppercase tracking-[0.4em] text-[10px] mb-8">Navegación</h4>
+                <ul class="space-y-4 text-[11px] uppercase tracking-widest">
+                    <li><a href="index.html" class="text-slate-500 hover:text-gold transition-colors">Inicio</a></li>
+                    <li><a href="Catalogos.html" class="text-slate-500 hover:text-gold transition-colors">Catálogos</a></li>
+                    <li><a href="asesorias.html" class="text-slate-500 hover:text-gold transition-colors">Asesorías</a></li>
+                    <li><a href="colecciones.html" class="text-slate-500 hover:text-gold transition-colors">Colecciones</a></li>
+                </ul>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="400">
+                <h4 class="text-white font-bold uppercase tracking-[0.4em] text-[10px] mb-8">Legal</h4>
+                <ul class="space-y-4 text-[11px] uppercase tracking-widest">
+                    <li><a href="#" class="text-slate-500 hover:text-gold transition-colors">Privacidad</a></li>
+                    <li><a href="#" class="text-slate-500 hover:text-gold transition-colors">Términos</a></li>
+                    <li><a href="#" class="text-slate-500 hover:text-gold transition-colors">Cookies</a></li>
+                </ul>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="600">
+                <h4 class="text-white font-bold uppercase tracking-[0.4em] text-[10px] mb-8">Contacto</h4>
+                <p class="text-slate-500 text-[11px] uppercase tracking-widest mb-6">Shopping Concierge Global</p>
+                <a href="https://wa.me/584244557693" class="group flex items-center justify-center lg:justify-start gap-4 text-gold font-black uppercase text-[10px] tracking-[0.3em]">
+                    <span>Chat Directo</span>
+                    <div class="w-8 h-px bg-gold/50 group-hover:w-12 transition-all duration-500"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="pt-12 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8">
+            <span class="text-[9px] text-slate-700 uppercase tracking-[0.5em] text-center">
+                &copy; 2026 Forever One — High End Fashion House
+            </span>
+            <span class="text-[9px] text-slate-700 uppercase tracking-[0.5em]">
+                Hecho con distinción
+            </span>
+        </div>
+    </div>
+
+    <div class="absolute -bottom-10 -left-10 opacity-[0.02] pointer-events-none select-none">
+        <span class="text-[20rem] font-serif font-black text-white leading-none italic">FO1</span>
+    </div>
+</footer>
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 1000 });
+    </script>
+    </body>
+</html>
