@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== SEO LOCAL: Yuma / Carabobo ===== -->
+    <title>Sello de Canaán | Panadería y Comida Rápida en Yuma, Carabobo</title>
+    <meta name="description"
+        content="Sello de Canaán — Panadería artesanal, pizzas, dulces y comida rápida en Yuma (Guigüe), Carabobo. Pedidos por WhatsApp con delivery. ¡Con amor desde nuestra cocina hasta tu mesa!">
+    <meta name="keywords"
+        content="Sello de Canaán, panadería Yuma, comida rápida Yuma, pizzas Yuma, delivery Yuma, comida Guigüe, panadería Carabobo, Leche y Miel, repostería Carabobo, empanadas Yuma">
+    <meta name="geo.region" content="VE-G">
+    <meta name="geo.placename" content="Yuma, Carabobo, Venezuela">
+    <link rel="canonical" href="https://sellodecanaan.com/">
+
+    <!-- ===== OPEN GRAPH ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sello de Canaán | Panadería y Comida Rápida — Yuma, Carabobo">
+    <meta property="og:description" content="Pizzas, panes artesanales, dulces y comida rápida en Yuma. Hecho con amor. Pide por WhatsApp con delivery.">
+    <meta property="og:image" content="logo_canaan.png">
+    <meta property="og:locale" content="es_VE">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sello de Canaán — Yuma, Carabobo">
+    <meta name="twitter:description" content="Comida artesanal con sabor a hogar. Pizzas, panes y más en Yuma, Carabobo.">
+
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" type="image/png" href="logo_canaan.png">
+    <link rel="apple-touch-icon" href="logo_canaan.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* ==============================
+           VARIABLES — SELLO DE CANAÁN
+           ============================== */
+        :root {
+            --ambar_dorado: #E85D04;
+            --ambar_hover: #DC2F02;
+            --terracota_profundo: #1F2937;
+            --terracota_hover: #374151;
+            --chocolate_tierra: #111827;
+            --chocolate_suave: #6B7280;
+            --crema_beige: #F4F5F7;
+            --crema_claro: #FFFFFF;
+            --blanco_puro: #ffffff;
+            --verde_whatsapp: #25D366;
+            --gris_borde: rgba(17, 24, 39, 0.08);
+            --sombra_card: 0 6px 20px rgba(0, 0, 0, 0.04);
+            --sombra_elevada: 0 12px 30px rgba(0, 0, 0, 0.08);
+            --sombra_flotante: 0 10px 30px rgba(232, 93, 4, 0.25);
+            --radio_sm: 12px;
+            --radio_md: 20px;
+            --radio_lg: 28px;
+            --radio_xl: 40px;
+            --transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ====== RESET ====== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--crema_beige);
+            color: var(--chocolate_tierra);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .fuente_serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ====== HEADER ====== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gris_borde);
+            padding: 14px 24px;
+        }
+
+        .header__inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header__logo_link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header__logo_icono {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header__logo_icono img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header__titulo {
+            font-family: 'Playfair Display', serif;
+            color: var(--terracota_profundo);
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .titulo_sello {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .titulo_canaan {
+            font-size: 24px;
+            font-weight: 900;
+            margin-top: 2px;
+            color: var(--ambar_dorado);
+        }
+
+        .header__nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .header__nav a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--terracota_profundo);
+            transition: var(--transicion);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header__nav a:hover {
+            color: var(--ambar_dorado);
+        }
+
+        .header__nav .nav_cta {
+            background: var(--ambar_dorado);
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: var(--radio_xl);
+            box-shadow: var(--sombra_flotante);
+        }
+
+        .header__nav .nav_cta:hover {
+            background: var(--ambar_hover);
+            transform: translateY(-1px);
+        }
+
+        /* ====== HERO ====== */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero__imagen {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.35);
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(17, 24, 39, 0.95) 0%, rgba(17, 24, 39, 0.4) 100%);
+        }
+
+        .hero__contenido {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 40px 24px;
+            max-width: 750px;
+        }
+
+        .hero__etiqueta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(232, 93, 4, 0.2);
+            border: 1px solid rgba(232, 93, 4, 0.4);
+            color: #FDB374;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        /* ====== SCROLL SUAVE RESEÑAS ====== */
+        @keyframes resena_entrada {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .resena_card { animation: resena_entrada 0.5s ease both; }
+        .resena_card:nth-child(1) { animation-delay: 0.05s; }
+        .resena_card:nth-child(2) { animation-delay: 0.15s; }
+        .resena_card:nth-child(3) { animation-delay: 0.25s; }
+        .resena_card:nth-child(4) { animation-delay: 0.35s; }
+
+        .hero__titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 7vw, 68px);
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero__titulo span {
+            color: var(--ambar_dorado);
+        }
+
+        .hero__subtitulo {
+            font-size: clamp(15px, 2.5vw, 18px);
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 520px;
+            margin: 0 auto 36px;
+        }
+
+        .hero__botones {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .boton_primario {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ambar_dorado);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--radio_xl);
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: var(--sombra_flotante);
+            transition: var(--transicion);
+        }
+
+        .boton_primario:hover {
+            background: var(--ambar_hover);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(232, 93, 4, 0.4);
+        }
+
+        .boton_secundario {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 16px 32px;
+            border-radius: var(--radio_xl);
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: var(--transicion);
+        }
+
+        .boton_secundario:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-3px);
+        }
+
+        .hero__scroll_hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 2;
+            animation: scroll_bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll_bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(8px)
+            }
+        }
+
+        /* ====== SECCIÓN GENERAL ====== */
+        .seccion {
+            padding: 80px 24px;
+        }
+
+        .seccion.fondo_oscuro {
+            background: var(--terracota_profundo);
+        }
+
+        .seccion.fondo_blanco {
+            background: var(--crema_claro);
+        }
+
+        .seccion__inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .seccion__etiqueta {
+            display: inline-block;
+            background: rgba(232, 93, 4, 0.1);
+            color: var(--ambar_dorado);
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .seccion__etiqueta--blanco {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .seccion__titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 44px);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--terracota_profundo);
+            margin-bottom: 16px;
+        }
+
+        .seccion__titulo--blanco {
+            color: white;
+        }
+
+        .seccion__descripcion {
+            font-size: 16px;
+            color: var(--chocolate_suave);
+            max-width: 600px;
+            margin-bottom: 48px;
+        }
+
+        .seccion__descripcion--blanco {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        /* ====== CATEGORÍAS ====== */
+        .categorias__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 20px;
+        }
+
+        .categoria_card {
+            background: var(--crema_claro);
+            border-radius: var(--radio_lg);
+            padding: 32px 20px;
+            text-align: center;
+            border: 1px solid var(--gris_borde);
+            box-shadow: var(--sombra_card);
+            transition: var(--transicion);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .categoria_card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--sombra_elevada);
+            border-color: var(--ambar_dorado);
+        }
+
+        .categoria_card__icono {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(232, 93, 4, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: var(--transicion);
+        }
+
+        .categoria_card:hover .categoria_card__icono {
+            background: var(--ambar_dorado);
+            color: white;
+        }
+
+        .categoria_card__icono i {
+            color: var(--ambar_dorado);
+            transition: var(--transicion);
+        }
+
+        .categoria_card:hover .categoria_card__icono i {
+            color: white;
+        }
+
+        .categoria_card__nombre {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--terracota_profundo);
+        }
+
+        .categoria_card__desc {
+            font-size: 12px;
+            color: var(--chocolate_suave);
+        }
+
+        /* ====== STATS / NÚMEROS ====== */
+        .stats__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radio_lg);
+            overflow: hidden;
+        }
+
+        .stat_item {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .stat_item__numero {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--ambar_dorado);
+            line-height: 1;
+        }
+
+        .stat_item__label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* ====== CÓMO PEDIR ====== */
+        .pasos_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 28px;
+        }
+
+        .paso_card {
+            background: var(--crema_claro);
+            border-radius: var(--radio_lg);
+            padding: 36px 28px;
+            border: 1px solid var(--gris_borde);
+            box-shadow: var(--sombra_card);
+            position: relative;
+        }
+
+        .paso_card__numero {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 700;
+            color: rgba(232, 93, 4, 0.08);
+            line-height: 1;
+            position: absolute;
+            top: 16px;
+            right: 20px;
+        }
+
+        .paso_card__icono {
+            width: 52px;
+            height: 52px;
+            background: var(--ambar_dorado);
+            border-radius: var(--radio_md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(232, 93, 4, 0.3);
+        }
+
+        .paso_card__icono i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .paso_card__titulo {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--terracota_profundo);
+        }
+
+        .paso_card__desc {
+            font-size: 14px;
+            color: var(--chocolate_suave);
+            line-height: 1.65;
+        }
+
+        /* ====== FUNDADORA ====== */
+        .fundadora__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .fundadora__foto_contenedor {
+            position: relative;
+        }
+
+        .fundadora__foto {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            object-position: top center;
+            border-radius: var(--radio_lg);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .fundadora__foto_placeholder {
+            width: 100%;
+            aspect-ratio: 4/5;
+            border-radius: var(--radio_lg);
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 50%, #fde68a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            border: 2px dashed rgba(232, 93, 4, 0.3);
+        }
+
+        .fundadora__foto_placeholder i {
+            font-size: 80px;
+            color: rgba(232, 93, 4, 0.3);
+        }
+
+        .fundadora__foto_placeholder p {
+            font-size: 13px;
+            color: var(--chocolate_suave);
+            font-weight: 600;
+        }
+
+        .fundadora__badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--ambar_dorado);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--radio_md);
+            box-shadow: 0 12px 30px rgba(232, 93, 4, 0.35);
+            text-align: center;
+        }
+
+        .fundadora__badge_numero {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .fundadora__badge_texto {
+            font-size: 11px;
+            font-weight: 700;
+            opacity: 0.9;
+            letter-spacing: 0.05em;
+        }
+
+        .fundadora__comillas {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            color: var(--ambar_dorado);
+            line-height: 0.8;
+            margin-bottom: 8px;
+            opacity: 0.6;
+        }
+
+        .fundadora__frase {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 3vw, 28px);
+            font-style: italic;
+            color: var(--terracota_profundo);
+            line-height: 1.4;
+            margin-bottom: 28px;
+        }
+
+        .fundadora__bio {
+            font-size: 15px;
+            color: var(--chocolate_suave);
+            line-height: 1.75;
+            margin-bottom: 32px;
+        }
+
+        .fundadora__nombre {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--terracota_profundo);
+        }
+
+        .fundadora__cargo {
+            font-size: 13px;
+            color: var(--ambar_dorado);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ====== RESEÑAS ====== */
+        .resenas__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .resena_card {
+            background: var(--crema_claro);
+            border-radius: var(--radio_lg);
+            padding: 32px 28px;
+            border: 1px solid var(--gris_borde);
+            box-shadow: var(--sombra_card);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: var(--transicion);
+            position: relative;
+        }
+
+        .resena_card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--sombra_elevada);
+        }
+
+        .resena_card__comillas {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            line-height: 1;
+            color: var(--ambar_dorado);
+            opacity: 0.12;
+            user-select: none;
+        }
+
+        .resena_card__estrellas {
+            display: flex;
+            gap: 4px;
+            color: var(--ambar_dorado);
+            font-size: 16px;
+        }
+
+        .resena_card__texto {
+            font-size: 15px;
+            color: var(--terracota_profundo);
+            line-height: 1.7;
+            font-style: italic;
+            flex-grow: 1;
+        }
+
+        .resena_card__foto_pedido {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: var(--radio_md);
+            border: 2px solid var(--gris_borde);
+        }
+
+        .resena_card__autor {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .resena_card__avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ambar_dorado), var(--ambar_hover));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(232, 93, 4, 0.25);
+            object-fit: cover;
+        }
+
+        .resena_card__nombre {
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--terracota_profundo);
+        }
+
+        .resena_card__detalle {
+            font-size: 12px;
+            color: var(--chocolate_suave);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .resena_card__tag_pedido {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(232, 93, 4, 0.08);
+            color: var(--ambar_dorado);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .resenas__grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin: 0 auto;
+            }
+        }
+
+        /* ====== CTA FINAL ====== */
+        .cta_final {
+            padding: 100px 24px;
+            background: linear-gradient(135deg, var(--terracota_profundo) 0%, #374151 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta_final::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 50%, rgba(232, 93, 4, 0.2) 0%, transparent 60%);
+        }
+
+        .cta_final__contenido {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .cta_final__titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 5vw, 50px);
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .cta_final__desc {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+        }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            background: var(--chocolate_tierra);
+            padding: 50px 24px 30px;
+            text-align: center;
+        }
+
+        .footer__inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer__logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .footer__eslogan {
+            font-size: 13px;
+            color: var(--ambar_dorado);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .footer__info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin-bottom: 32px;
+        }
+
+        .footer__info_item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer__info_item i {
+            color: var(--ambar_dorado);
+        }
+
+        .footer__redes {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .footer__red_link {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transicion);
+        }
+
+        .footer__red_link:hover {
+            background: var(--ambar_dorado);
+            border-color: var(--ambar_dorado);
+            transform: translateY(-3px);
+        }
+
+        .footer__red_link svg {
+            width: 18px;
+            height: 18px;
+            fill: rgba(255, 255, 255, 0.7);
+            transition: var(--transicion);
+        }
+
+        .footer__red_link:hover svg {
+            fill: white;
+        }
+
+        .footer__separador {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            margin: 0 0 24px;
+        }
+
+        .footer__copy {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ====== RESPONSIVE — MOBILE FIRST ====== */
+
+        /* Tablet (≤768px) */
+        @media (max-width: 768px) {
+
+            /* Header */
+            .titulo_sello {
+                font-size: 12px;
+            }
+
+            .titulo_canaan {
+                font-size: 18px;
+            }
+
+            .header__nav {
+                gap: 16px;
+            }
+
+            /* Ocultar texto, dejar solo icóno */
+            .header__nav a:not(.nav_cta) span {
+                display: none;
+            }
+
+            .header__nav a:not(.nav_cta) {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 1px solid var(--gris_borde);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .header__nav .nav_cta {
+                padding: 9px 16px;
+                font-size: 13px;
+            }
+
+            /* Hero */
+            .hero {
+                min-height: 80vh;
+            }
+
+            .hero__contenido {
+                padding: 30px 20px;
+            }
+
+            .hero__botones {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .boton_primario,
+            .boton_secundario {
+                width: 100%;
+                max-width: 320px;
+                justify-content: center;
+            }
+
+            /* Categorías */
+            .categorias__grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .categoria_card {
+                padding: 24px 14px;
+            }
+
+            /* Stats */
+            .stats__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Pasos */
+            .pasos_grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .paso_card {
+                padding: 28px 22px;
+            }
+
+            /* Fundadora */
+            .fundadora__grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .fundadora__foto_contenedor {
+                max-width: 340px;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            .fundadora__badge {
+                bottom: -14px;
+                right: 10px;
+                padding: 12px 18px;
+            }
+
+            .fundadora__badge_numero {
+                font-size: 24px;
+            }
+
+            .fundadora__badge_texto {
+                font-size: 10px;
+            }
+
+            /* CTA */
+            .cta_final {
+                padding: 70px 20px;
+            }
+        }
+
+        /* Pantallas medianas-pequeñas (≤600px): solo CTA en el nav */
+        @media (max-width: 600px) {
+            .header__logo_link {
+                gap: 8px;
+            }
+
+            .header__titulo {
+                font-size: 14px;
+                max-width: 160px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Ocultar links icon-only — solo queda el botón CTA */
+            .header__nav a:not(.nav_cta) {
+                display: none;
+            }
+
+            .header__nav .nav_cta {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+        }
+
+        /* Móvil pequeño (≤480px) */
+        @media (max-width: 480px) {
+
+            /* Secciones */
+            .seccion {
+                padding: 50px 16px;
+            }
+
+            .cta_final {
+                padding: 60px 16px;
+            }
+
+            /* Header compacto */
+            .header__logo_link {
+                gap: 10px;
+            }
+
+            .header__titulo {
+                font-size: 14px;
+            }
+
+            .header__nav {
+                gap: 8px;
+            }
+
+            .header__nav .nav_cta {
+                padding: 8px 14px;
+                font-size: 12px;
+                border-radius: 24px;
+            }
+
+            /* Ocultar todos los links de nav excepto el CTA en móviles pequeños */
+            .header__nav a:not(.nav_cta) {
+                display: none;
+            }
+
+            /* Hero */
+            .hero {
+                min-height: 75vh;
+            }
+
+            .hero__contenido {
+                padding: 24px 16px;
+            }
+
+            .hero__scroll_hint {
+                display: none;
+            }
+
+            /* Categorías en 2 columnas ajustadas */
+            .categorias__grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .categoria_card {
+                padding: 20px 10px;
+                gap: 10px;
+                border-radius: 16px;
+            }
+
+            .categoria_card__icono {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
+            }
+
+            /* Stats en 2×2 con padding reducido */
+            .stats__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat_item {
+                padding: 28px 16px;
+            }
+
+            .stat_item__numero {
+                font-size: 38px;
+            }
+
+            /* Footer */
+            .footer__info {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .footer__redes {
+                gap: 12px;
+            }
+
+            .footer__logo {
+                font-size: 20px;
+            }
+
+            /* Fundadora */
+            .fundadora__comillas {
+                font-size: 56px;
+            }
+
+            .fundadora__frase {
+                font-size: 18px;
+            }
+
+            .fundadora__bio {
+                font-size: 14px;
+            }
+
+            .fundadora__nombre {
+                font-size: 17px;
+            }
+        }
+        /* ===== PRELOADER ===== */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--crema_claro);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .preloader--hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(232, 93, 4, 0.2);
+            border-top-color: var(--ambar_dorado);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo_link">
+                <div class="header__logo_icono">
+                    <img src="logo_canaan.png" alt="Logo Sello de Canaán">
+                </div>
+                <div>
+                    <p class="header__titulo titulo_sello">SELLO DE</p>
+                    <p class="header__titulo titulo_canaan">CANAÁN</p>
+                </div>
+            </a>
+            <nav class="header__nav">
+                <a href="canaan.html" class="nav_cta">
+                    <i class="ri-shopping-bag-3-fill"></i>
+                    Ver Menú
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+        <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=1400"
+            alt="Variedad de comida rápida Sello de Canaán" class="hero__imagen">
+        <div class="hero__overlay"></div>
+        <div class="hero__contenido">
+            <h1 class="hero__titulo fuente_serif">
+                Sabor artesanal,<br>hecho con <span>amor</span>.
+            </h1>
+            <p class="hero__subtitulo">
+                Desde nuestra panadería hasta las pizzas, dulces y comida rápida — todo con el sello de calidad que
+                caracteriza a Canaán.
+            </p>
+            <div class="hero__botones">
+                <a href="canaan.html" class="boton_primario">
+                    <i class="ri-shopping-bag-3-fill" style="font-size:20px;"></i>
+                    Ver el Menú
+                </a>
+                <a href="#nosotros" class="boton_secundario">
+                    <i class="ri-play-circle-fill" style="font-size:20px;"></i>
+                    Nuestra historia
+                </a>
+            </div>
+        </div>
+        <div class="hero__scroll_hint">
+            <i class="ri-arrow-down-s-fill" style="font-size:22px;"></i>
+            Scroll
+        </div>
+    </section>
+
+    <!-- ===== LO QUE OFRECEMOS ===== -->
+    <section class="seccion fondo_blanco" id="menu">
+        <div class="seccion__inner">
+            <div style="text-align:center; margin-bottom:48px;">
+                <span class="seccion__etiqueta">Nuestro Menú</span>
+                <h2 class="seccion__titulo fuente_serif">Variedad en cada bocado</h2>
+                <p class="seccion__descripcion" style="margin:0 auto;">
+                    Elaboramos con ingredientes frescos y amor. Desde panadería artesanal hasta pizzas, dulces y combos
+                    para toda la familia.
+                </p>
+            </div>
+            <div class="categorias__grid">
+                <a href="canaan.html" class="categoria_card" style="--delay:0.1s;">
+                    <div class="categoria_card__icono"><i class="ri-cake-2-fill"></i></div>
+                    <div>
+                        <div class="categoria_card__nombre">Panes & Lácteos</div>
+                        <div class="categoria_card__desc">Artesanales y frescos</div>
+                    </div>
+                </a>
+                <a href="canaan.html" class="categoria_card">
+                    <div class="categoria_card__icono"><i class="ri-restaurant-fill"></i></div>
+                    <div>
+                        <div class="categoria_card__nombre">Pizzas</div>
+                        <div class="categoria_card__desc">10 variedades únicas</div>
+                    </div>
+                </a>
+                <a href="canaan.html" class="categoria_card">
+                    <div class="categoria_card__icono"><i class="ri-star-fill"></i></div>
+                    <div>
+                        <div class="categoria_card__nombre">Dulces</div>
+                        <div class="categoria_card__desc">Postres irresistibles</div>
+                    </div>
+                </a>
+                <a href="canaan.html" class="categoria_card">
+                    <div class="categoria_card__icono"><i class="ri-cup-fill"></i></div>
+                    <div>
+                        <div class="categoria_card__nombre">Comida Rápida</div>
+                        <div class="categoria_card__desc">Burgers, perros y más</div>
+                    </div>
+                </a>
+                <a href="canaan.html" class="categoria_card">
+                    <div class="categoria_card__icono"><i class="ri-gift-fill"></i></div>
+                    <div>
+                        <div class="categoria_card__nombre">Combos</div>
+                        <div class="categoria_card__desc">Más por menos</div>
+                    </div>
+                </a>
+                <a href="canaan.html" class="categoria_card"
+                    style="border-style: dashed; background: rgba(232,93,4,0.03);">
+                    <div class="categoria_card__icono" style="background: rgba(232,93,4,0.08);"><i
+                            class="ri-add-circle-fill" style="color: var(--ambar_dorado);"></i></div>
+                    <div>
+                        <div class="categoria_card__nombre" style="color: var(--ambar_dorado);">Ver Todo</div>
+                        <div class="categoria_card__desc">Menú completo →</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NÚMEROS ===== -->
+    <section class="seccion fondo_oscuro">
+        <div class="seccion__inner">
+            <div class="stats__grid">
+                <div class="stat_item">
+                    <div class="stat_item__numero fuente_serif">50+</div>
+                    <div class="stat_item__label">Productos en el menú</div>
+                </div>
+                <div class="stat_item">
+                    <div style="font-size:40px; color: var(--ambar_dorado); margin-bottom:4px;">
+                        <i class="ri-hand-heart-fill"></i>
+                    </div>
+                    <div class="stat_item__label">Calidad artesanal</div>
+                </div>
+                <div class="stat_item">
+                    <div class="stat_item__numero fuente_serif">7/7</div>
+                    <div class="stat_item__label">Días a la semana</div>
+                </div>
+                <div class="stat_item">
+                    <div style="font-size:40px; color: var(--ambar_dorado); margin-bottom:4px;">
+                        <i class="ri-e-bike-2-fill"></i>
+                    </div>
+                    <div class="stat_item__label">Delivery express local</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CÓMO PEDIR ===== -->
+    <section class="seccion" id="como_pedir">
+        <div class="seccion__inner">
+            <div style="text-align:center; margin-bottom:48px;">
+                <span class="seccion__etiqueta">Proceso</span>
+                <h2 class="seccion__titulo fuente_serif">¿Cómo hacer tu pedido?</h2>
+                <p class="seccion__descripcion" style="margin:0 auto;">
+                    Simple, rápido y sin complicaciones. En 4 pasos tienes tu pedido camino a tu mesa.
+                </p>
+            </div>
+            <div class="pasos_grid">
+                <div class="paso_card">
+                    <div class="paso_card__numero">1</div>
+                    <div class="paso_card__icono"><i class="ri-shopping-bag-3-fill"></i></div>
+                    <div class="paso_card__titulo">Elige tus favoritos</div>
+                    <p class="paso_card__desc">Navega nuestro menú digital, filtra por categoría y agrega todo lo que
+                        quieras a tu canasta.</p>
+                </div>
+                <div class="paso_card">
+                    <div class="paso_card__numero">2</div>
+                    <div class="paso_card__icono"><i class="ri-user-fill"></i></div>
+                    <div class="paso_card__titulo">Llena tus datos</div>
+                    <p class="paso_card__desc">Escribe tu nombre y, si es delivery, tu dirección y punto de referencia.
+                        Selecciona tu zona.</p>
+                </div>
+                <div class="paso_card">
+                    <div class="paso_card__numero">3</div>
+                    <div class="paso_card__icono"><i class="ri-whatsapp-fill"></i></div>
+                    <div class="paso_card__titulo">Envía por WhatsApp</div>
+                    <p class="paso_card__desc">Con un clic enviamos tu pedido completo al WhatsApp del negocio.
+                        ¡Incluyendo el detalle de pago!</p>
+                </div>
+                <div class="paso_card">
+                    <div class="paso_card__numero">4</div>
+                    <div class="paso_card__icono"><i class="ri-bank-fill"></i></div>
+                    <div class="paso_card__titulo">Confirma tu pago</div>
+                    <p class="paso_card__desc">Transfiere por Pago Móvil y adjunta tu comprobante en el chat. ¡Empezamos
+                        a preparar tu pedido!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FUNDADORA ===== -->
+    <section class="seccion fondo_blanco" id="nosotros">
+        <div class="seccion__inner">
+            <div class="fundadora__grid">
+                <!-- FOTO -->
+                <div class="fundadora__foto_contenedor">
+                    <img src="fundadora.png" alt="Fundadora Sello de Canaán" class="fundadora__foto">
+                    <div class="fundadora__badge">
+                        <div class="fundadora__badge_numero fuente_serif">♥</div>
+                        <div class="fundadora__badge_texto">Con amor<br>desde Yuma</div>
+                    </div>
+                </div>
+
+                <!-- TEXTO -->
+                <div>
+                    <span class="seccion__etiqueta">Nuestra Historia</span>
+                    <h2 class="seccion__titulo fuente_serif" style="margin-bottom:24px;">
+                        Detrás del sello,<br>hay un corazón.
+                    </h2>
+                    <div class="fundadora__comillas">"</div>
+                    <blockquote class="fundadora__frase">
+                        "Todo lo que hacemos nace del amor por la familia y la fe de que el esfuerzo siempre rinde
+                        frutos."
+                    </blockquote>
+                    <p class="fundadora__bio">
+                        Sello de Canaán nació del sueño de llevar comida artesanal, hecha con ingredientes frescos y
+                        mucho amor, a cada mesa de Yuma. Desde los primeros panes hasta las pizzas y combos familiares,
+                        cada producto lleva consigo el cuidado y la dedicación de quien lo prepara con las manos.
+                    </p>
+                    <p class="fundadora__bio" style="margin-bottom:32px;">
+                        La bakery comenzó como un proyecto de fe — un pequeño emprendimiento con grandes valores — y
+                        hoy, gracias al apoyo de nuestra comunidad, somos una referencia gastronómica en nuestra hermosa
+                        Yuma.
+                    </p>
+                    <div style="display:flex; align-items:center; gap:16px;">
+                        <div style="width:50px;height:3px;background:var(--ambar_dorado);border-radius:4px;"></div>
+                        <div>
+                            <div class="fundadora__nombre">Fundadora — Sello de Canaán</div>
+                            <div class="fundadora__cargo">Panadería Artesanal · Yuma</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RESEÑAS ===== -->
+    <section class="seccion fondo_blanco" id="resenas">
+        <div class="seccion__inner">
+            <div style="text-align:center; margin-bottom:48px;">
+                <span class="seccion__etiqueta">Testimonios</span>
+                <h2 class="seccion__titulo fuente_serif">Lo que dicen nuestros clientes</h2>
+                <p class="seccion__descripcion" style="margin:0 auto;">
+                    Cada pedido es una historia de sabor. Esto es lo que la familia Canaán dice de nosotros.
+                </p>
+            </div>
+            <div class="resenas__grid">
+
+                <!-- Reseña 1 -->
+                <div class="resena_card">
+                    <span class="resena_card__comillas">"</span>
+                    <div class="resena_card__estrellas">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <p class="resena_card__texto">
+                        "La pizza de pepperoni es simplemente la mejor de Yuma. Masa finita, ingredientes frescos y llega calientita. ¡Ya son mis favoritos para cada viernes!"
+                    </p>
+                    <img
+                        src="https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=600"
+                        alt="Pizza pepperoni pedida por María G."
+                        class="resena_card__foto_pedido">
+                    <div class="resena_card__autor">
+                        <img class="resena_card__avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&auto=format&fit=crop" alt="Foto Avatar">
+                        <div>
+                            <div class="resena_card__nombre">María G.</div>
+                            <div class="resena_card__detalle">
+                                <i class="ri-map-pin-2-fill" style="color:var(--ambar_dorado); font-size:12px;"></i>
+                                Yuma, Carabobo
+                            </div>
+                        </div>
+                        <span class="resena_card__tag_pedido" style="margin-left:auto;">
+                            <i class="ri-restaurant-fill"></i> Pizzas
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Reseña 2 -->
+                <div class="resena_card">
+                    <span class="resena_card__comillas">"</span>
+                    <div class="resena_card__estrellas">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <p class="resena_card__texto">
+                        "Los panes artesanales son increíbles. Suaves por dentro, crujientes por fuera. Los pido cada semana para el desayuno de mi familia. ¡Bendiciones para Canaán!"
+                    </p>
+                    <img
+                        src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600"
+                        alt="Panes artesanales Sello de Canaán"
+                        class="resena_card__foto_pedido">
+                    <div class="resena_card__autor">
+                        <img class="resena_card__avatar" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&auto=format&fit=crop" alt="Foto Avatar">
+                        <div>
+                            <div class="resena_card__nombre">Carlos R.</div>
+                            <div class="resena_card__detalle">
+                                <i class="ri-map-pin-2-fill" style="color:var(--ambar_dorado); font-size:12px;"></i>
+                                Guigüe, Carabobo
+                            </div>
+                        </div>
+                        <span class="resena_card__tag_pedido" style="margin-left:auto;">
+                            <i class="ri-cake-2-fill"></i> Panes
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Reseña 3 -->
+                <div class="resena_card">
+                    <span class="resena_card__comillas">"</span>
+                    <div class="resena_card__estrellas">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i><i class="ri-star-half-fill"></i>
+                    </div>
+                    <p class="resena_card__texto">
+                        "Pedí el combo familiar para el cumple de mi hija y llegó rapidísimo. Todo delicioso, las empanadas me encantaron. El delivery súper puntual, 100% recomendado."
+                    </p>
+                    <img
+                        src="https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?q=80&w=600"
+                        alt="Combo familiar con empanadas"
+                        class="resena_card__foto_pedido">
+                    <div class="resena_card__autor">
+                        <img class="resena_card__avatar" src="https://images.unsplash.com/photo-1531123414780-f74242c2b052?q=80&w=100&auto=format&fit=crop" alt="Foto Avatar">
+                        <div>
+                            <div class="resena_card__nombre">Luisa M.</div>
+                            <div class="resena_card__detalle">
+                                <i class="ri-map-pin-2-fill" style="color:var(--ambar_dorado); font-size:12px;"></i>
+                                Yuma, Carabobo
+                            </div>
+                        </div>
+                        <span class="resena_card__tag_pedido" style="margin-left:auto;">
+                            <i class="ri-gift-fill"></i> Combos
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===== CTA FINAL ===== -->
+    <section class="cta_final">
+        <div class="cta_final__contenido">
+            <span class="seccion__etiqueta seccion__etiqueta--blanco"
+                style="margin-bottom:24px; display:inline-block;">¿Listo para pedir?</span>
+            <h2 class="cta_final__titulo fuente_serif">
+                Tu próxima comida favorita<br>está a un clic.
+            </h2>
+            <p class="cta_final__desc">
+                Explora más de 50 productos artesanales. Hazlo desde tu teléfono y recibe en minutos.
+            </p>
+            <a href="canaan.html" class="boton_primario" style="font-size:18px; padding:18px 40px;">
+                <i class="ri-shopping-bag-3-fill" style="font-size:22px;"></i>
+                Abrir el Menú Completo
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer__inner">
+            <p class="footer__logo fuente_serif">SELLO DE CANAÁN</p>
+            <p class="footer__eslogan">Leche y Miel</p>
+            <div class="footer__info">
+                <div class="footer__info_item">
+                    <i class="ri-map-pin-fill"></i>
+                    <span>Yuma</span>
+                </div>
+                <div class="footer__info_item">
+                    <i class="ri-time-fill"></i>
+                    <span>Lun-Sáb: 7:00 AM - 8:00 PM</span>
+                </div>
+                <div class="footer__info_item">
+                    <i class="ri-phone-fill"></i>
+                    <span>0412-0708031</span>
+                </div>
+            </div>
+            <div class="footer__redes">
+                <a href="#" class="footer__red_link" title="WhatsApp" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                </a>
+                <a href="#" class="footer__red_link" title="Instagram" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                </a>
+                <a href="#" class="footer__red_link" title="TikTok" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                    </svg>
+                </a>
+            </div>
+            <div class="footer__separador"></div>
+            <p class="footer__copy">© 2026 Sello de Canaán. Todos los derechos reservados. — Yuma, Venezuela.</p>
+        </div>
+    </footer>
+
+    <!-- Script del Preloader -->
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('preloader--hidden');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 300); // 300ms de gracia artificial para asegurar la animación
+        });
+    </script>
+</body>
+
+</html>
